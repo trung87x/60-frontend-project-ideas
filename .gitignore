@@ -1,0 +1,92 @@
+# =========================================
+# 🧩 GLOBAL IGNORE FOR MULTI PROJECT WORKSPACE
+# =========================================
+
+# Node.js / npm / pnpm / yarn
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+.pnpm-debug.log*
+
+# Vite & React build outputs
+dist/
+build/
+.out/
+.svelte-kit/
+.next/
+.vercel/
+.cache/
+.vite/
+.vite-inspect/
+
+# Tailwind / PostCSS cache
+*.css.map
+*.postcssrc
+.postcss-cache/
+.tailwind-cache/
+tailwind-output.css
+
+# TypeScript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Logs
+logs/
+*.log
+*.log.*
+lerna-debug.log*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.DS_Store
+Thumbs.db
+
+# Environment files (local only)
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# Temporary / Misc
+temp/
+tmp/
+*.tmp
+*.bak
+*.old
+
+# OS generated
+ehthumbs.db
+Icon?
+desktop.ini
+
+# Testing / Coverage
+coverage/
+.nyc_output/
+jest-cache/
+jest-test-results.json
+
+# GitHub / CI artifacts
+*.tgz
+*.gz
+*.zip
+*.tar
+*.tar.gz
+
+# =========================================
+# 🧱 PER PROJECT SUBFOLDERS (optional fine-tuning)
+# =========================================
+1-portfolio-website/**/node_modules/
+1-portfolio-website/**/dist/
+2-to-do-list-app/**/node_modules/
+2-to-do-list-app/**/dist/
+*/node_modules/
+*/dist/
+*/build/
