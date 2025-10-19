@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To‑Do List — Level 1 (HTML + CSS)</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <h1>✅ To‑Do List <span class="badge">Level 1</span></h1>
+      <p class="subtitle">
+        HTML + CSS (+ một chút JS cho tương tác cơ bản, <strong>không lưu trữ</strong>).
+      </p>
+    </header>
+
+    <main class="container">
+      <!-- Form thêm việc -->
+      <form id="todo-form" class="card" autocomplete="off" aria-label="Thêm công việc mới">
+        <label for="todo-input" class="label">Công việc</label>
+        <div class="row">
+          <input
+            id="todo-input"
+            class="input"
+            type="text"
+            placeholder="Nhập việc và nhấn Enter…"
+            aria-required="true"
+          />
+          <button class="btn" type="submit" aria-label="Thêm công việc">Thêm</button>
+        </div>
+        <p class="hint">Mẹo: Nhấn <kbd>Enter</kbd> để thêm nhanh.</p>
+      </form>
+
+      <!-- Bộ đếm -->
+      <section class="stats" aria-live="polite">
+        <span id="count-all">0</span> việc •
+        <span id="count-active">0</span> đang làm •
+        <span id="count-done">0</span> hoàn thành
+      </section>
+
+      <!-- Danh sách -->
+      <section class="card">
+        <ul id="todo-list" class="list" role="list" aria-label="Danh sách công việc">
+          <!-- Mục sẽ được thêm vào đây bằng JS rất nhẹ -->
+        </ul>
+        <p id="empty-state" class="empty">Danh sách trống. Hãy thêm việc mới!</p>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <small>Level 1: Tập trung UI/UX cơ bản, a11y, và tương tác nhẹ.</small>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

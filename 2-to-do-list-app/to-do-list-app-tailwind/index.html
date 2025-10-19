@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full" data-theme>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List — Level 2 (TailwindCSS)</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Tailwind config
+      tailwind.config = {
+        theme: {
+          extend: {
+            container: { center: true, padding: '1rem' },
+            boxShadow: { soft: '0 1px 2px rgba(0,0,0,.04)' },
+          }
+        },
+        darkMode: 'class'
+      };
+      // Persist theme
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+    </script>
+  </head>
+  <body class="h-full bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100">
+    <div class="container max-w-2xl py-6">
+      <header class="mb-4">
+        <div class="flex items-center justify-between">
+          <h1 class="text-2xl font-bold">
+            ✅ To-Do List <span class="text-xs font-semibold ml-2 px-2 py-0.5 rounded-full bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-100">Level 2</span>
+          </h1>
+          <button id="theme-toggle" class="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-lg border border-slate-200 shadow-soft hover:bg-slate-100 dark:hover:bg-slate-800">
+            <span class="icon">🌙</span> <span>Dark</span>
+          </button>
+        </div>
+        <p class="text-slate-600 dark:text-slate-300 mt-1">TailwindCSS + Dark Mode, UI nâng cấp. (Không lưu trữ dữ liệu)</p>
+      </header>
+
+      <!-- Card: Form -->
+      <section class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 shadow-soft mb-3">
+        <form id="todo-form" class="space-y-2" autocomplete="off" aria-label="Thêm công việc mới">
+          <label for="todo-input" class="block text-sm font-medium">Công việc</label>
+          <div class="flex gap-2">
+            <input id="todo-input" type="text"
+              class="flex-1 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2 text-base outline-none focus:ring-2 focus:ring-sky-300"
+              placeholder="Nhập việc và nhấn Enter…" aria-required="true" />
+            <button type="submit" class="rounded-lg px-4 py-2 font-semibold bg-sky-500 text-white hover:brightness-95 active:translate-y-px">Thêm</button>
+          </div>
+          <p class="text-sm text-slate-500">Mẹo: Nhấn <kbd class="px-1.5 py-0.5 rounded bg-slate-900 text-white">Enter</kbd> để thêm nhanh.</p>
+        </form>
+      </section>
+
+      <!-- Stats -->
+      <section class="flex items-center gap-3 text-slate-700 dark:text-slate-200 mb-3" aria-live="polite">
+        <span><strong id="count-all">0</strong> việc</span>
+        <span>•</span>
+        <span><strong id="count-active">0</strong> đang làm</span>
+        <span>•</span>
+        <span><strong id="count-done">0</strong> hoàn thành</span>
+      </section>
+
+      <!-- Card: List -->
+      <section class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 shadow-soft">
+        <ul id="todo-list" role="list" class="space-y-2"></ul>
+        <p id="empty-state" class="text-center text-slate-400 mt-2">Danh sách trống. Hãy thêm việc mới!</p>
+      </section>
+
+      <footer class="text-center text-slate-500 dark:text-slate-400 mt-6">
+        <small>Level 2: Tập trung TailwindCSS, trạng thái hover/focus, dark mode.</small>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
