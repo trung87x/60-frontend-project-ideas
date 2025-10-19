@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weather App — Level 2 (TailwindCSS)</title>
+    <meta name="description" content="Weather App Level 2: UI tĩnh với TailwindCSS (CDN), dark mode, responsive." />
+    <link rel="icon" href="assets/icons/01d.svg" />
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Tailwind config (CDN)
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              bg: '#0b1020',
+              card: '#131a2b',
+              text: '#e8ecf1',
+              muted: '#9fb0c1',
+              primary: '#4da3ff'
+            },
+            borderRadius: { '2xl': '1rem' },
+            boxShadow: { 'card': '0 8px 20px rgba(0,0,0,0.2)' }
+          }
+        }
+      };
+    </script>
+    <script>
+      // Theme bootstrap (persist)
+      const THEME_KEY = 'weather_theme';
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      }
+      function toggleTheme(){
+        const el = document.documentElement;
+        const dark = el.classList.toggle('dark');
+        localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
+      }
+    </script>
+  </head>
+  <body class="min-h-full bg-bg text-text dark:bg-slate-950 dark:text-slate-100">
+    <!-- Header -->
+    <header class="border-b border-white/10">
+      <div class="mx-auto max-w-6xl px-4 py-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 class="text-xl font-semibold tracking-wide">Weather <span class="text-primary">App</span> — <span class="opacity-75">Level 2</span></h1>
+        <div class="flex items-center gap-2">
+          <button onclick="toggleTheme()" class="rounded-xl border border-white/15 px-3 py-2 text-sm hover:bg-white/5">🌓 Đổi theme</button>
+          <form class="grid grid-cols-[1fr_auto] gap-2" onsubmit="event.preventDefault()">
+            <label for="city" class="sr-only">Thành phố</label>
+            <input id="city" class="rounded-xl border border-white/15 bg-white/5 px-3 py-2 placeholder:text-slate-400 focus:outline-none" placeholder="Nhập thành phố..."/>
+            <button class="rounded-xl bg-primary text-slate-950 px-3 py-2 text-sm font-semibold">Tìm</button>
+          </form>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="py-6">
+      <div class="mx-auto max-w-6xl px-4 grid gap-4 sm:grid-cols-[1.3fr_1fr]">
+        <!-- Current Card -->
+        <section class="rounded-2xl border border-white/10 bg-card/80 dark:bg-white/5 p-4 shadow-card">
+          <h2 class="text-sm font-semibold text-slate-400 mb-3">Thời tiết hiện tại</h2>
+          <div class="grid grid-cols-[1fr_auto] items-center gap-4">
+            <div>
+              <div class="text-slate-400 text-sm">Ho Chi Minh <span class="text-slate-500">• VN</span></div>
+              <div class="flex items-baseline gap-1">
+                <div class="text-5xl font-bold">30</div>
+                <div class="text-xl">°C</div>
+              </div>
+              <p class="text-slate-400 mt-1">Nắng nhẹ, ít mây</p>
+            </div>
+            <img src="assets/icons/01d.svg" alt="Trời quang mây" class="size-24">
+          </div>
+          <div class="grid grid-cols-3 gap-2 mt-3 text-sm">
+            <div class="rounded-xl border border-white/10 bg-white/5 p-2">Độ ẩm <b>65%</b></div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-2">Gió <b>12 km/h</b></div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-2">Cập nhật <b>10:30</b></div>
+          </div>
+          <p class="mt-2 text-sm text-slate-400 hidden" id="state-empty">Hãy nhập tên thành phố để xem thời tiết.</p>
+          <p class="mt-2 text-sm text-rose-400 hidden" id="state-error">Không tìm thấy dữ liệu. Thử lại.</p>
+        </section>
+
+        <!-- Forecast -->
+        <section class="rounded-2xl border border-white/10 bg-card/80 dark:bg-white/5 p-4 shadow-card">
+          <h2 class="text-sm font-semibold text-slate-400 mb-3">Dự báo 5 phiên</h2>
+          <ul class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+            <li class="rounded-xl border border-white/10 bg-white/5 p-3 grid place-items-center gap-1">
+              <img src="assets/icons/02d.svg" class="size-12" alt="Mây thưa">
+              <div class="text-xs text-slate-400">11:00</div>
+              <div class="font-bold">31°C</div>
+              <div class="text-xs text-slate-400">Mây thưa</div>
+            </li>
+            <li class="rounded-xl border border-white/10 bg-white/5 p-3 grid place-items-center gap-1">
+              <img src="assets/icons/03d.svg" class="size-12" alt="Nhiều mây">
+              <div class="text-xs text-slate-400">14:00</div>
+              <div class="font-bold">32°C</div>
+              <div class="text-xs text-slate-400">Nhiều mây</div>
+            </li>
+            <li class="rounded-xl border border-white/10 bg-white/5 p-3 grid place-items-center gap-1">
+              <img src="assets/icons/10d.svg" class="size-12" alt="Mưa nhẹ">
+              <div class="text-xs text-slate-400">17:00</div>
+              <div class="font-bold">29°C</div>
+              <div class="text-xs text-slate-400">Mưa nhẹ</div>
+            </li>
+            <li class="rounded-xl border border-white/10 bg-white/5 p-3 grid place-items-center gap-1">
+              <img src="assets/icons/01n.svg" class="size-12" alt="Đêm quang mây">
+              <div class="text-xs text-slate-400">20:00</div>
+              <div class="font-bold">27°C</div>
+              <div class="text-xs text-slate-400">Quang mây</div>
+            </li>
+            <li class="rounded-xl border border-white/10 bg-white/5 p-3 grid place-items-center gap-1">
+              <img src="assets/icons/04n.svg" class="size-12" alt="Âm u">
+              <div class="text-xs text-slate-400">23:00</div>
+              <div class="font-bold">26°C</div>
+              <div class="text-xs text-slate-400">Âm u</div>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 mt-6">
+      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+        <p class="text-sm text-slate-400">© 2025 Weather App — Level 2 (Tailwind)</p>
+        <div class="flex gap-2" role="group" aria-label="Đổi đơn vị nhiệt độ">
+          <button class="rounded-xl border border-white/15 px-3 py-2 text-sm hover:bg-white/5">°C</button>
+          <button class="rounded-xl border border-white/15 px-3 py-2 text-sm hover:bg-white/5">°F</button>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

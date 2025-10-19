@@ -1,0 +1,140 @@
+/* styles.css — Weather App Level 1 (UI tĩnh) */
+:root {
+  --bg: #0b1020;
+  --card: #131a2b;
+  --text: #e8ecf1;
+  --muted: #9fb0c1;
+  --primary: #4da3ff;
+  --accent: #ffd166;
+  --radius: 16px;
+  --gap: 16px;
+  --container: 1100px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body.page {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  background: linear-gradient(180deg, #0b1020, #0b1020 30%, #0e1628);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  width: min(100% - 24px, var(--container));
+  margin-inline: auto;
+}
+
+.header { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.header__inner { display: grid; gap: var(--gap); align-items: center; }
+.header__title { margin: 0; font-size: 22px; letter-spacing: 0.5px; }
+.brand { color: var(--primary); }
+
+.search { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+.search__input {
+  background: #0e1728;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  outline: none;
+}
+.search__input::placeholder { color: var(--muted); }
+.search__btn { white-space: nowrap; }
+
+.btn {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: #152038;
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.btn--primary { background: var(--primary); color: #06111f; border: none; font-weight: 600; }
+.btn--ghost { background: transparent; }
+
+.main { padding: 24px 0 40px; }
+.grid { display: grid; gap: var(--gap); }
+.card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.section-title { margin: 0 0 12px; font-size: 16px; color: var(--muted); font-weight: 600; }
+
+.current__top { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--gap); }
+.current__location { font-size: 14px; color: var(--muted); }
+.current__city { font-size: 20px; color: var(--text); margin-right: 8px; }
+.current__temp { font-size: 42px; font-weight: 700; display: flex; align-items: baseline; gap: 4px; }
+.current__desc { margin: 6px 0 0; color: var(--muted); }
+.current__icon { width: 88px; height: 88px; }
+
+.current__meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+  font-size: 14px;
+}
+.meta__item { background: rgba(255,255,255,0.04); padding: 10px 12px; border-radius: 10px; }
+
+.forecast__list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; list-style: none; padding: 0; margin: 0; }
+.forecast__item {
+  display: grid; place-items: center; gap: 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px; padding: 10px;
+}
+.forecast__icon { width: 44px; height: 44px; }
+.forecast__time { color: var(--muted); font-size: 12px; }
+.forecast__temp { font-weight: 700; }
+
+.footer { padding: 18px 0 28px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 24px; }
+.footer__inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.unit-toggle__btn { margin-left: 4px; }
+.unit-toggle__btn--active { border-color: var(--primary); color: var(--primary); }
+
+/* Trợ năng */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; clip-path: inset(50%);
+  border: 0; padding: 0; margin: -1px;
+}
+
+/* State (dùng sau ở Level 4) */
+.state { margin-top: 8px; font-size: 14px; color: var(--muted); }
+.state--error { color: #ff8b8b; }
+
+/* Responsive */
+@media (min-width: 640px) {
+  .header__inner { grid-template-columns: 1fr 1fr; }
+  .grid { grid-template-columns: 1.3fr 1fr; }
+}
+
+@media (max-width: 639px) {
+  .forecast__list { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Tùy chọn: light theme khi hệ thống là light */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f6f8fc;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --primary: #2563eb;
+  }
+  body.page { background: linear-gradient(180deg, #f6f8fc, #f6f8fc); }
+  .btn--primary { color: #fff; }
+}

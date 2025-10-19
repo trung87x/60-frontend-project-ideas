@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weather App — Level 1</title>
+    <meta name="description" content="Weather App UI tĩnh: tìm kiếm, thời tiết hiện tại, và dự báo." />
+    <link rel="icon" href="assets/icons/01d.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page">
+    <header class="header">
+      <div class="container header__inner">
+        <h1 class="header__title">Weather <span class="brand">App</span></h1>
+        <form class="search" aria-label="Tìm kiếm thành phố" role="search" onsubmit="event.preventDefault();">
+          <label class="visually-hidden" for="city">Thành phố</label>
+          <input id="city" class="search__input" type="text" placeholder="Nhập thành phố, ví dụ: Ho Chi Minh" />
+          <button class="btn btn--primary search__btn" type="submit">Tìm</button>
+        </form>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container grid">
+        <!-- Current Weather Card -->
+        <section class="card current" aria-labelledby="current-title">
+          <h2 id="current-title" class="section-title">Thời tiết hiện tại</h2>
+          <div class="current__top">
+            <div class="current__left">
+              <div class="current__location">
+                <span class="current__city">Ho Chi Minh</span>
+                <span class="current__country">VN</span>
+              </div>
+              <div class="current__temp">
+                <span class="current__value">30</span><span class="unit">°C</span>
+              </div>
+              <p class="current__desc">Nắng nhẹ, ít mây</p>
+            </div>
+            <div class="current__right">
+              <img class="current__icon" src="assets/icons/01d.svg" alt="Trời quang mây" />
+            </div>
+          </div>
+          <div class="current__meta">
+            <div class="meta__item"><span>Độ ẩm:</span> <strong>65%</strong></div>
+            <div class="meta__item"><span>Gió:</span> <strong>12 km/h</strong></div>
+            <div class="meta__item"><span>Cập nhật:</span> <strong>10:30</strong></div>
+          </div>
+          <!-- Empty / Error state placeholders -->
+          <p class="state state--empty" hidden>Hãy nhập tên thành phố để xem thời tiết.</p>
+          <p class="state state--error" hidden>Không tìm thấy dữ liệu. Thử lại.</p>
+        </section>
+
+        <!-- Forecast List -->
+        <section class="card forecast" aria-labelledby="forecast-title">
+          <h2 id="forecast-title" class="section-title">Dự báo 5 phiên (minh họa)</h2>
+          <ul class="forecast__list">
+            <li class="forecast__item">
+              <img class="forecast__icon" src="assets/icons/02d.svg" alt="Mây thưa" />
+              <div class="forecast__time">11:00</div>
+              <div class="forecast__temp">31°C</div>
+              <div class="forecast__desc">Mây thưa</div>
+            </li>
+            <li class="forecast__item">
+              <img class="forecast__icon" src="assets/icons/03d.svg" alt="Nhiều mây" />
+              <div class="forecast__time">14:00</div>
+              <div class="forecast__temp">32°C</div>
+              <div class="forecast__desc">Nhiều mây</div>
+            </li>
+            <li class="forecast__item">
+              <img class="forecast__icon" src="assets/icons/10d.svg" alt="Mưa nhẹ" />
+              <div class="forecast__time">17:00</div>
+              <div class="forecast__temp">29°C</div>
+              <div class="forecast__desc">Mưa nhẹ</div>
+            </li>
+            <li class="forecast__item">
+              <img class="forecast__icon" src="assets/icons/01n.svg" alt="Đêm quang mây" />
+              <div class="forecast__time">20:00</div>
+              <div class="forecast__temp">27°C</div>
+              <div class="forecast__desc">Quang mây</div>
+            </li>
+            <li class="forecast__item">
+              <img class="forecast__icon" src="assets/icons/04n.svg" alt="Âm u" />
+              <div class="forecast__time">23:00</div>
+              <div class="forecast__temp">26°C</div>
+              <div class="forecast__desc">Âm u</div>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p>© 2025 Weather App — UI tĩnh (Level 1)</p>
+        <div class="unit-toggle" role="group" aria-label="Đổi đơn vị nhiệt độ">
+          <button class="btn btn--ghost unit-toggle__btn unit-toggle__btn--active">°C</button>
+          <button class="btn btn--ghost unit-toggle__btn">°F</button>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
