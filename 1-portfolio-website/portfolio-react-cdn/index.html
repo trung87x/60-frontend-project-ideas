@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio • React (CDN)</title>
+    <meta name="description" content="Portfolio dùng React (CDN + Babel) — component-based, quản lý state." />
+    <link rel="icon" href="./assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css" />
+    <!-- React 18 UMD + Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useEffect, useMemo, useState } = React;
+
+      function Container({ children }) { return <div className="container">{children}</div>; }
+      function Section({ id, alt, children }) { return <section id={id} className={"section" + (alt ? " alt" : "")}>{children}</section>; }
+      function Button({ children, onClick, variant = "solid", as = "button", href }) {
+        const className = "btn " + (variant === "ghost" ? "ghost" : "");
+        const props = { className, onClick };
+        if (as === "a") return <a {...props} href={href}>{children}</a>;
+        return <button {...props}>{children}</button>;
+      }
+
+      function Navbar({ theme, toggleTheme }) {
+        return (
+          <header className="site-header">
+            <Container>
+              <div className="flex between center">
+                <a className="brand" href="#home">trung87</a>
+                <nav className="nav">
+                  <a href="#about">Giới thiệu</a>
+                  <a href="#projects">Dự án</a>
+                  <a href="#contact" className="btn">Liên hệ</a>
+                  <button className="btn ghost" onClick={toggleTheme}>
+                    {theme === "dark" ? "🌙 Dark" : "☀️ Light"}
+                  </button>
+                </nav>
+              </div>
+            </Container>
+          </header>
+        );
+      }
+
+      function Hero() {
+        return (
+          <Section id="home">
+            <Container>
+              <div className="grid-2">
+                <div>
+                  <h1>Xin chào 👋<br/>Tôi là <span className="accent">[Tên của bạn]</span></h1>
+                  <p className="lead">
+                    Phiên bản <strong>Portfolio React (CDN)</strong> — kiến trúc component, state, props.
+                    Sẵn sàng mở rộng sang router, form, và data fetching.
+                  </p>
+                  <div className="actions">
+                    <Button as="a" href="#projects">Xem dự án</Button>
+                    <Button as="a" href="#contact" variant="ghost">Gửi email</Button>
+                  </div>
+                </div>
+                <div className="hero-card">
+                  <img src="https://picsum.photos/seed/react/800/600" alt="React Portfolio" />
+                </div>
+              </div>
+            </Container>
+          </Section>
+        );
+      }
+
+      function About() {
+        return (
+          <Section id="about" alt>
+            <Container>
+              <div className="grid-2">
+                <div>
+                  <h2>Giới thiệu</h2>
+                  <p>
+                    Mục tiêu là UI rõ ràng, dễ bảo trì. Với React, ta chia nhỏ thành
+                    <strong> components</strong>, truyền <strong>props</strong>, và quản lý <strong>state</strong>.
+                  </p>
+                  <ul className="tick">
+                    <li>Component-based — tái sử dụng tối đa</li>
+                    <li>State & props — luồng dữ liệu xuống (down), callback lên (up)</li>
+                    <li>Dễ mở rộng Router, Fetch API, Context</li>
+                  </ul>
+                </div>
+                <div className="about-card">
+                  <img src="https://picsum.photos/seed/about-react/600/400" alt="About React" />
+                </div>
+              </div>
+            </Container>
+          </Section>
+        );
+      }
+
+      function ProjectCard({ project, onToggleFeatured }) {
+        const { id, title, desc, image, featured } = project;
+        return (
+          <article className="card">
+            <img src={image} alt={title} />
+            <div className="card-body">
+              <div className="flex between center">
+                <h3>{title}</h3>
+                <label className="chip">
+                  <input type="checkbox" checked={featured} onChange={() => onToggleFeatured(id)} /> Featured
+                </label>
+              </div>
+              <p>{desc}</p>
+              <a className="link" href="#" aria-disabled="true">Xem demo</a>
+            </div>
+          </article>
+        );
+      }
+
+      function Projects() {
+        const [filter, setFilter] = useState("all");
+        const [projects, setProjects] = useState([
+          { id: 1, title: "Portfolio React", desc: "Hero, About, Projects, Contact.", image: "https://picsum.photos/seed/p1/640/420", featured: true },
+          { id: 2, title: "Todo App", desc: "Quản lý công việc — định hướng React Hooks.", image: "https://picsum.photos/seed/p2/640/420", featured: false },
+          { id: 3, title: "Blog cá nhân", desc: "Viết kỹ thuật & ghi chú học tập.", image: "https://picsum.photos/seed/p3/640/420", featured: false },
+        ]);
+
+        const visible = useMemo(() => filter === "all" ? projects : projects.filter(p => p.featured), [projects, filter]);
+
+        function onToggleFeatured(id) {
+          setProjects(prev => prev.map(p => p.id === id ? { ...p, featured: !p.featured } : p));
+        }
+
+        return (
+          <Section id="projects">
+            <Container>
+              <div className="flex between center">
+                <h2>Dự án</h2>
+                <div className="segmented">
+                  <button className={filter === "all" ? "active" : ""} onClick={() => setFilter("all")}>Tất cả</button>
+                  <button className={filter === "featured" ? "active" : ""} onClick={() => setFilter("featured")}>Featured</button>
+                </div>
+              </div>
+
+              <div className="projects-grid">
+                {visible.map(p => <ProjectCard key={p.id} project={p} onToggleFeatured={onToggleFeatured} />)}
+              </div>
+            </Container>
+          </Section>
+        );
+      }
+
+      function Contact() {
+        const [form, setForm] = useState({ name: "", email: "", message: "" });
+        const [submitted, setSubmitted] = useState(false);
+
+        function handleChange(e) {
+          const { name, value } = e.target;
+          setForm(prev => ({ ...prev, [name]: value }));
+        }
+        function handleSubmit(e) {
+          e.preventDefault();
+          setSubmitted(true);
+        }
+
+        return (
+          <Section id="contact">
+            <Container>
+              <div className="grid-2">
+                <div>
+                  <h2>Liên hệ</h2>
+                  {!submitted ? (
+                    <form className="form" onSubmit={handleSubmit}>
+                      <label>Họ tên<input name="name" value={form.name} onChange={handleChange} required /></label>
+                      <label>Email<input type="email" name="email" value={form.email} onChange={handleChange} required /></label>
+                      <label>Nội dung<textarea name="message" rows="5" value={form.message} onChange={handleChange} required /></label>
+                      <Button as="button">Gửi</Button>
+                    </form>
+                  ) : (
+                    <div className="notice success">✅ Cảm ơn {form.name}! (demo)</div>
+                  )}
+                </div>
+                <div className="contact-card">
+                  <img src="https://picsum.photos/seed/contact-react/640/480" alt="Liên hệ" />
+                </div>
+              </div>
+            </Container>
+          </Section>
+        );
+      }
+
+      function Footer() {
+        return (
+          <footer className="site-footer">
+            <Container>
+              <div className="flex between center">
+                <p>© 2025 • Tên của bạn</p>
+                <a href="#home" className="to-top">Lên đầu ↑</a>
+              </div>
+            </Container>
+          </footer>
+        );
+      }
+
+      function App() {
+        const [theme, setTheme] = useState(() => {
+          const saved = localStorage.getItem("theme");
+          if (saved) return saved;
+          const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+          return prefersDark ? "dark" : "light";
+        });
+        useEffect(() => {
+          document.documentElement.dataset.theme = theme;
+          localStorage.setItem("theme", theme);
+        }, [theme]);
+        const toggleTheme = () => setTheme(t => (t === "dark" ? "light" : "dark"));
+
+        return (<>
+          <Navbar theme={theme} toggleTheme={toggleTheme} />
+          <Hero /><About /><Projects /><Contact /><Footer />
+        </>);
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>

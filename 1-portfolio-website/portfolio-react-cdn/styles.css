@@ -1,0 +1,80 @@
+/* ====== Theme variables ====== */
+:root {
+  --bg: #0b0d12;
+  --surface: #121620;
+  --surface-2: #171c28;
+  --text: #e6e9f2;
+  --muted: #b6bed3;
+  --accent: #61dafb;
+  --border: #273049;
+  --radius: 16px;
+  --space: 20px;
+}
+:root[data-theme="light"] {
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --surface-2: #f3f5fa;
+  --text: #0f172a;
+  --muted: #42506b;
+  --accent: #2563eb;
+  --border: #e5e7eb;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+.container { width: min(1100px, 92vw); margin: 0 auto; }
+.flex { display: flex; gap: 12px; }
+.center { align-items: center; }
+.between { justify-content: space-between; }
+.grid-2 { display: grid; gap: 28px; grid-template-columns: 1fr; }
+@media (min-width: 860px) { .grid-2 { grid-template-columns: 1.2fr 1fr; } }
+.section { padding: 72px 0; }
+.section.alt { background: radial-gradient(1200px 600px at 50% -200px, #1a2046 0%, transparent 60%); }
+
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(0,0,0,0.15); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.brand { font-weight: 800; letter-spacing: 0.5px; text-decoration: none; color: var(--text); }
+.nav a { color: var(--muted); text-decoration: none; padding: 10px 14px; border-radius: 999px; border: 1px solid transparent; }
+.nav a:hover { color: var(--text); border-color: var(--border); }
+.nav .btn { background: var(--surface-2); color: var(--text); }
+.nav .btn:hover { filter: brightness(1.1); }
+.btn, .link, .to-top { display: inline-block; padding: 10px 16px; border-radius: 999px; text-decoration: none; border: 1px solid var(--border); background: var(--surface); color: var(--text); }
+.btn.ghost { background: transparent; }
+.btn:hover, .link:hover, .to-top:hover { filter: brightness(1.15); }
+
+h1 { font-size: clamp(28px, 4vw, 46px); line-height: 1.2; margin: 0 0 12px; }
+h2 { font-size: clamp(22px, 3vw, 30px); margin: 0 0 10px; }
+h3 { margin: 0 0 8px; }
+.lead { color: var(--muted); max-width: 60ch; }
+.accent { color: var(--accent); }
+.actions { display: flex; gap: 12px; margin-top: 16px; }
+
+.hero-card, .about-card, .contact-card { border: 1px solid var(--border); background: var(--surface); border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,.25); }
+.hero-card img, .about-card img, .contact-card img { width: 100%; height: auto; display: block; }
+
+.projects-grid { display: grid; gap: 18px; grid-template-columns: 1fr; margin-top: 18px; }
+@media (min-width: 760px) { .projects-grid { grid-template-columns: repeat(3, 1fr); } }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+.card img { width: 100%; height: auto; display: block; }
+.card-body { padding: 14px; }
+.card .link { margin-top: 6px; background: transparent; color: var(--accent); border-color: transparent; padding-left: 0; }
+
+.chip { display: inline-flex; gap: 8px; align-items: center; font-size: 12px; color: var(--muted); }
+.segmented { display: inline-flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+.segmented button { background: transparent; border: 0; padding: 8px 14px; color: var(--muted); cursor: pointer; }
+.segmented .active { background: var(--surface); color: var(--text); }
+
+.form { display: grid; gap: 12px; max-width: 520px; }
+.form label { display: grid; gap: 8px; font-weight: 600; }
+.form input, .form textarea { border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: var(--surface); color: var(--text); }
+.notice { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); }
+.notice.success { background: #0d1b12; border-color: #1d3b29; color: #d1fae5; }
+
+.site-footer { padding: 30px 0; border-top: 1px solid var(--border); background: rgba(0,0,0,0.1); }
+.to-top { background: var(--surface-2); }
