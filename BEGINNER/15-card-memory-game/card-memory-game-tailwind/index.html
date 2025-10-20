@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Card Memory Game — Cấp 3 (Tailwind)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+  .card{transform-style:preserve-3d;transition:transform .35s}
+  .card.flipped{transform:rotateY(180deg)}
+  .face{backface-visibility:hidden}
+  .back{transform:rotateY(180deg)}
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-200">
+  <main class="mx-auto max-w-3xl p-6">
+    <h1 class="text-2xl font-bold mb-3">🧠🃏 Card Memory Game — Cấp 3</h1>
+    <section class="flex items-center gap-3 mb-3">
+      <div>⏱️ <span id="time">00:00</span></div>
+      <div>👣 <span id="moves">0</span> lần lật</div>
+      <button id="restart" class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2">↻ Chơi lại</button>
+    </section>
+    <section id="board" class="grid grid-cols-4 gap-3"></section>
+    <p id="status" class="text-slate-400 text-sm min-h-5 mt-2"></p>
+  </main>
+  <script>
+const EMOJIS=['🍎','🐶','🌟','🎈','🚗','🍩','🎮','🎵']
+let first=null,second=null,lock=false,moves=0,start=0,timer=null,matched=0
+const board=document.getElementById('board'),movesEl=document.getElementById('moves'),timeEl=document.getElementById('time'),statusEl=document.getElementById('status')
+const pad=n=>String(n).padStart(2,'0'); const fmt=t=>{const s=Math.floor(t/1000);return pad(Math.floor(s/60))+':'+pad(s%60)}
+function render(){
+  const deck=[...EMOJIS,...EMOJIS].sort(()=>Math.random()-0.5)
+  board.innerHTML=''
+  deck.forEach((emo,i)=>{
+    const c=document.createElement('div'); c.className='card relative aspect-square rounded-2xl border border-slate-700 cursor-pointer bg-slate-900'
+    c.dataset.v=emo; c.dataset.i=i
+    c.innerHTML=`<div class="face absolute inset-0 grid place-items-center text-2xl">🂠</div><div class="face back absolute inset-0 grid place-items-center text-3xl bg-slate-800 rounded-2xl">${emo}</div>`
+    c.onclick=()=>flip(c); board.appendChild(c)
+  })
+  first=second=null;lock=false;moves=0;matched=0;start=Date.now();movesEl.textContent=0;statusEl.textContent=''
+  if(timer) clearInterval(timer); timer=setInterval(()=>timeEl.textContent=fmt(Date.now()-start),250)
+}
+function flip(c){
+  if(lock||c.classList.contains('flipped')||c.classList.contains('matched')) return
+  c.classList.add('flipped'); if(!first){first=c;return} second=c; lock=true; moves++; movesEl.textContent=moves
+  if(first.dataset.v===second.dataset.v){ first.classList.add('ring-2','ring-emerald-500'); second.classList.add('ring-2','ring-emerald-500'); first.classList.add('matched'); second.classList.add('matched'); matched+=2; lock=false; first=second=null; if(matched===EMOJIS.length*2){ clearInterval(timer); statusEl.textContent=`✅ Hoàn thành trong ${moves} lần lật, thời gian ${timeEl.textContent}` } }
+  else { setTimeout(()=>{ first.classList.remove('flipped'); second.classList.remove('flipped'); first=second=null; lock=false },700) }
+}
+document.getElementById('restart').onclick=render; render()
+  </script>
+</body>
+</html>

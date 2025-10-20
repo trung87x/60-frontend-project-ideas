@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Interactive Maps — Cấp 3 (Tailwind + Leaflet)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>.map{height:540px;border-radius:16px;overflow:hidden;border:1px solid #334155}</style>
+</head>
+<body class="bg-slate-900 text-slate-200">
+  <main class="mx-auto max-w-5xl p-6 space-y-3">
+    <h1 class="text-2xl font-bold">🗺️ Interactive Maps — Cấp 3</h1>
+    <div class="flex gap-2">
+      <input id="q" class="flex-1 rounded-xl bg-slate-950 border border-slate-700 px-3 py-2" placeholder="Nhập: Hà Nội / Sài Gòn / Đà Nẵng" />
+      <button id="search" class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2">Tìm</button>
+      <button id="locate" class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2">Vị trí của tôi</button>
+      <button id="clear" class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2">Xoá marker</button>
+    </div>
+    <div id="map" class="map"></div>
+    <p id="status" class="text-sm text-slate-400 min-h-5"></p>
+  </main>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+const map=L.map('map').setView([21.028511,105.804817],12)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap'}).addTo(map)
+let markers=[]
+const add=(a,b,l)=>{const m=L.marker([a,b]).addTo(map).bindPopup(l||a.toFixed(4)+', '+b.toFixed(4)); markers.push(m); return m}
+const PRESETS={'hà nội':[21.028511,105.804817],'ha noi':[21.028511,105.804817],'hanoi':[21.028511,105.804817],'sài gòn':[10.77653,106.700981],'ho chi minh':[10.77653,106.700981],'da nang':[16.0544,108.2022]}
+const statusEl=document.getElementById('status')
+document.getElementById('clear').onclick=()=>{markers.forEach(m=>map.removeLayer(m));markers=[]}
+document.getElementById('search').onclick=()=>{const q=(document.getElementById('q').value||'').toLowerCase().trim(); const hit=PRESETS[q]; if(hit){map.setView(hit,12); add(hit[0],hit[1],'📍 '+q); statusEl.textContent=''}else{statusEl.textContent='Không tìm thấy (demo)'}}
+document.getElementById('locate').onclick=()=>{ if(!navigator.geolocation){statusEl.textContent='Không hỗ trợ Geolocation'; return} navigator.geolocation.getCurrentPosition(p=>{map.setView([p.coords.latitude,p.coords.longitude],14); add(p.coords.latitude,p.coords.longitude,'📍 Vị trí của tôi'); statusEl.textContent=''},()=>statusEl.textContent='Không lấy được vị trí') }
+map.on('click',e=>add(e.latlng.lat,e.latlng.lng))
+  </script>
+</body>
+</html>
