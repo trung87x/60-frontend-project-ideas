@@ -1,0 +1,14 @@
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0f172a;color:#e5e7eb}
+.container{max-width:840px;margin:40px auto;padding:24px}
+.card{background:#111827;border:1px solid #1f2937;border-radius:18px;padding:20px}
+.header{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.progress{flex:1;height:10px;background:#0b1220;border:1px solid #1f2937;border-radius:999px;overflow:hidden}
+.bar{height:100%;background:#2563eb}
+.meta{font-size:14px;color:#94a3b8}
+.question{margin:8px 0 12px}
+.options{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.opt{padding:12px;border:1px solid #1f2937;background:#0b1220;border-radius:12px}
+.actions{display:flex;gap:8px;margin-top:12px}
+button{padding:10px 14px;border-radius:10px;border:1px solid #374151;background:#0b1220;color:#e5e7eb;cursor:pointer}
+button:hover{background:#0c172a}.primary{border-color:#2563eb}
+.hint{margin-top:12px;color:#94a3b8;font-size:13px}

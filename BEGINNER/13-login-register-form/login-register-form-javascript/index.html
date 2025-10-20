@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login/Register — Cấp 2 (JavaScript)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>🔐 Login & Register — Cấp 2</h1>
+    <section class="grid">
+      <form id="loginForm" class="card" novalidate>
+        <h2>Đăng nhập</h2>
+        <label>Email</label>
+        <input name="email" type="email" required />
+        <p class="err" id="loginEmailErr"></p>
+        <label>Mật khẩu</label>
+        <input name="password" type="password" required minlength="6" />
+        <p class="err" id="loginPassErr"></p>
+        <button id="loginBtn" type="submit">Đăng nhập</button>
+        <p id="loginStatus" class="status"></p>
+      </form>
+
+      <form id="registerForm" class="card" novalidate>
+        <h2>Đăng ký</h2>
+        <label>Họ tên</label>
+        <input name="name" type="text" required minlength="2" />
+        <p class="err" id="regNameErr"></p>
+        <label>Email</label>
+        <input name="email" type="email" required />
+        <p class="err" id="regEmailErr"></p>
+        <label>Mật khẩu</label>
+        <input name="password" type="password" required minlength="6" />
+        <p class="err" id="regPassErr"></p>
+        <button id="registerBtn" type="submit">Tạo tài khoản</button>
+        <p id="registerStatus" class="status"></p>
+      </form>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
