@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Form — Cấp 2 (JavaScript)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>📨 Contact Form — Cấp 2</h1>
+    <form id="form" class="card" novalidate>
+      <label for="name">Họ tên</label>
+      <input id="name" name="name" type="text" required minlength="2" />
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required />
+
+      <label for="message">Nội dung</label>
+      <textarea id="message" name="message" rows="5" required minlength="10"></textarea>
+
+      <label class="row">
+        <input id="agree" type="checkbox" required /> Tôi đồng ý với điều khoản
+      </label>
+
+      <button id="submitBtn" type="submit">Gửi</button>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

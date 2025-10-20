@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Level 1 — Timer & Stopwatch (HTML + CSS)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>⏱️ Timer & Stopwatch — Level 1</h1>
+    <p class="subtitle">HTML + CSS thuần • Giao diện tĩnh (chưa có JavaScript)</p>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>Stopwatch (Bấm giờ)</h2>
+      <div class="display">00:00:00.000</div>
+      <div class="actions">
+        <button class="btn" disabled>Start</button>
+        <button class="btn" disabled>Pause</button>
+        <button class="btn" disabled>Reset</button>
+        <button class="btn" disabled>Lap</button>
+      </div>
+      <ul class="laps">
+        <li class="hint">Danh sách Lap sẽ hiển thị ở đây (Level 2 trở lên)</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2>Timer (Đếm ngược)</h2>
+      <form class="timer-form">
+        <label>
+          Phút
+          <input type="number" min="0" step="1" value="1" disabled />
+        </label>
+        <label>
+          Giây
+          <input type="number" min="0" max="59" step="1" value="30" disabled />
+        </label>
+      </form>
+      <div class="display">00:01:30</div>
+      <div class="actions">
+        <button class="btn" disabled>Start</button>
+        <button class="btn" disabled>Pause</button>
+        <button class="btn" disabled>Reset</button>
+      </div>
+      <p class="hint">Form nhập & điều khiển sẽ hoạt động từ Level 2 (JavaScript).</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 trung87.link — Level 1 (HTML + CSS)</p>
+  </footer>
+</body>
+</html>

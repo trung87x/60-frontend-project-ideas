@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Currency Converter — Cấp 1 (HTML + CSS)</title><link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="container">
+  <h1>💱 Currency Converter — Cấp 1</h1>
+  <section class="card">
+    <div class="row"><label for="amount">Số tiền</label><input id="amount" type="number" value="100" /></div>
+    <div class="row grid-2">
+      <div><label for="from">Từ</label>
+        <select id="from">
+          <option>USD</option><option>EUR</option><option>VND</option><option>JPY</option>
+          <option>GBP</option><option>AUD</option><option>CAD</option><option>KRW</option>
+        </select>
+      </div>
+      <div><label for="to">Sang</label>
+        <select id="to">
+          <option>VND</option><option>USD</option><option>EUR</option><option>JPY</option>
+          <option>GBP</option><option>AUD</option><option>CAD</option><option>KRW</option>
+        </select>
+      </div>
+    </div>
+    <button type="button" class="btn">Chuyển đổi</button>
+    <div class="result">Kết quả sẽ hiển thị ở đây.</div>
+    <p class="hint">Cấp 1 chỉ dựng UI tĩnh, chưa có JavaScript.</p>
+  </section>
+</main>
+</body></html>

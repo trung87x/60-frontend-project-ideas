@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quote Generator — Cấp 2 (JavaScript cơ bản)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>✨ Quote Generator</h1>
+        <p class="subtitle">Cấp 2 — JavaScript cơ bản (random + copy + tweet)</p>
+      </header>
+
+      <section class="card" aria-live="polite">
+        <div class="quote-wrap">
+          <svg class="quote-mark" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7.17 6C4.88 6 3 7.88 3 10.17v7.66C3 19.88 4.88 21.76 7.17 21.76h.01c2.29 0 4.17-1.88 4.17-4.17v-7.6C11.35 7.88 9.47 6 7.18 6h-.01Zm9.65 0C14.52 6 12.64 7.88 12.64 10.17v7.66c0 2.29 1.88 4.17 4.17 4.17h.01c2.29 0 4.17-1.88 4.17-4.17v-7.6C21 7.88 19.12 6 16.83 6h-.01Z"/>
+          </svg>
+          <blockquote id="text" class="quote-text">“Nhấn New Quote để bắt đầu 😄”</blockquote>
+          <cite id="author" class="quote-author">— <span>Trợ lý</span></cite>
+        </div>
+
+        <div class="actions">
+          <button id="btn-new" class="btn">New Quote</button>
+          <button id="btn-copy" class="btn">Copy</button>
+          <a id="btn-tweet" class="btn" href="#" target="_blank" rel="noopener">Tweet</a>
+        </div>
+        <p class="hint">Mẹo: bấm <kbd>Space</kbd> để random quote.</p>
+      </section>
+
+      <footer class="footer">
+        <a href="#" class="muted" aria-disabled="true">trung87.link</a>
+      </footer>
+    </main>
+    <script src="./quotes.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

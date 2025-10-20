@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "slug": "hanh-trinh-hoc-react",
+    "title": "Hành trình học React từ con số 0",
+    "excerpt": "Tư duy component, state, props... chuẩn bị cho Next.js.",
+    "date": "2025-10-20",
+    "cover": "/cover1.jpg",
+    "content": "Bắt đầu từ HTML/CSS → JS → React. Luyện chia nhỏ UI thành component, quản lý state, props, và side effect."
+  },
+  {
+    "id": 2,
+    "slug": "tailwindcss-co-gi-dac-biet",
+    "title": "TailwindCSS có gì đặc biệt?",
+    "excerpt": "Utility-first, tốc độ dựng UI nhanh, dễ bảo trì.",
+    "date": "2025-10-18",
+    "cover": "/cover2.jpg",
+    "content": "Tailwind giúp viết CSS theo utility, giảm trùng lặp, scale tốt trên dự án lớn."
+  },
+  {
+    "id": 3,
+    "slug": "typography-cho-blog",
+    "title": "Typography cho Blog",
+    "excerpt": "Measure, line-height, contrast — tạo cảm giác đọc dễ chịu.",
+    "date": "2025-10-12",
+    "cover": "/cover3.jpg",
+    "content": "Chú trọng chiều rộng dòng (~60-75 ký tự), khoảng cách dòng, độ tương phản và hệ thống tiêu đề."
+  }
+]

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Level 2 — Blog TailwindCSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind dark mode toggle (class strategy)
+    const THEME_KEY = 'theme';
+    function applyTheme(t) { 
+      if (t === 'dark') document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+    }
+    (function initTheme(){
+      const saved = localStorage.getItem(THEME_KEY) || 'light';
+      applyTheme(saved);
+    })();
+    function toggleTheme(){
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth }
+  </style>
+
+</head>
+<body class="min-h-full bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+  <header class="border-b bg-white/70 dark:bg-zinc-900/70 backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-xl font-semibold tracking-tight">📝 Blog Cá Nhân</a>
+      <nav class="flex items-center gap-4 text-sm">
+        <a href="index.html" class="hover:underline">Trang chủ</a>
+        <a href="posts.html" class="hover:underline">Bài viết</a>
+        <a href="about.html" class="hover:underline">Giới thiệu</a>
+        <a href="contact.html" class="hover:underline">Liên hệ</a>
+        <button onclick="toggleTheme()" class="rounded-md border px-3 py-1 text-xs hover:bg-zinc-50 dark:hover:bg-zinc-800">Dark/Light</button>
+      </nav>
+    </div>
+  </header>
+
+<main class="mx-auto max-w-6xl px-4 py-10">
+  <section class="mb-12 text-center">
+    <h1 class="text-3xl md:text-4xl font-bold mb-3">Blog Website — Level 2 (TailwindCSS)</h1>
+    <p class="text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">UI hiện đại, responsive, hỗ trợ dark mode. Bước đệm hoàn hảo để lên React & Next.js.</p>
+  </section>
+
+  <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <article class="rounded-xl border bg-white dark:bg-zinc-900 overflow-hidden">
+      <img src="assets/post1.jpg" alt="Post 1" class="h-40 w-full object-cover" />
+      <div class="p-4">
+        <a href="post.html" class="text-lg font-semibold hover:underline">Hành trình học React từ con số 0</a>
+        <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Từ HTML/CSS đến React và Next.js — cách tư duy theo component.</p>
+      </div>
+    </article>
+
+    <article class="rounded-xl border bg-white dark:bg-zinc-900 overflow-hidden">
+      <img src="assets/post2.jpg" alt="Post 2" class="h-40 w-full object-cover" />
+      <div class="p-4">
+        <a href="post.html" class="text-lg font-semibold hover:underline">TailwindCSS có gì đặc biệt?</a>
+        <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Utility-first, tốc độ dựng UI nhanh, dễ bảo trì.</p>
+      </div>
+    </article>
+
+    <article class="rounded-xl border bg-white dark:bg-zinc-900 overflow-hidden">
+      <img src="assets/post3.jpg" alt="Post 3" class="h-40 w-full object-cover" />
+      <div class="p-4">
+        <a href="post.html" class="text-lg font-semibold hover:underline">Thiết kế typography cho blog</a>
+        <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">Line-height, measure, contrast — những nguyên tắc nhỏ tạo nên khác biệt.</p>
+      </div>
+    </article>
+  </section>
+</main>
+  <footer class="mt-16 border-t">
+    <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-zinc-500 dark:text-zinc-400">
+      © 2025 trung87.link — Xây dựng với TailwindCSS (Level 2)
+    </div>
+  </footer>
+
+</body>
+</html>

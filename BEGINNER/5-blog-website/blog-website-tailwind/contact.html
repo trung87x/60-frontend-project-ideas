@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Liên hệ — Level 2</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind dark mode toggle (class strategy)
+    const THEME_KEY = 'theme';
+    function applyTheme(t) { 
+      if (t === 'dark') document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+    }
+    (function initTheme(){
+      const saved = localStorage.getItem(THEME_KEY) || 'light';
+      applyTheme(saved);
+    })();
+    function toggleTheme(){
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth }
+  </style>
+
+</head>
+<body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+  <header class="border-b bg-white/70 dark:bg-zinc-900/70 backdrop-blur">
+    <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-xl font-semibold tracking-tight">📝 Blog Cá Nhân</a>
+      <nav class="flex items-center gap-4 text-sm">
+        <a href="index.html" class="hover:underline">Trang chủ</a>
+        <a href="posts.html" class="hover:underline">Bài viết</a>
+        <a href="about.html" class="hover:underline">Giới thiệu</a>
+        <a href="contact.html" class="hover:underline">Liên hệ</a>
+        <button onclick="toggleTheme()" class="rounded-md border px-3 py-1 text-xs hover:bg-zinc-50 dark:hover:bg-zinc-800">Dark/Light</button>
+      </nav>
+    </div>
+  </header>
+
+<main class="mx-auto max-w-xl px-4 py-10">
+  <h1 class="text-2xl md:text-3xl font-bold mb-6">Liên hệ</h1>
+  <form class="space-y-4">
+    <div>
+      <label class="block text-sm mb-1">Họ và tên</label>
+      <input type="text" class="w-full rounded-lg border bg-white dark:bg-zinc-900 px-3 py-2" placeholder="Nhập tên của bạn" />
+    </div>
+    <div>
+      <label class="block text-sm mb-1">Email</label>
+      <input type="email" class="w-full rounded-lg border bg-white dark:bg-zinc-900 px-3 py-2" placeholder="Nhập email của bạn" />
+    </div>
+    <div>
+      <label class="block text-sm mb-1">Tin nhắn</label>
+      <textarea class="w-full rounded-lg border bg-white dark:bg-zinc-900 px-3 py-2" rows="5" placeholder="Nội dung..."></textarea>
+    </div>
+    <button type="submit" class="rounded-lg border px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-800">Gửi</button>
+  </form>
+</main>
+  <footer class="mt-16 border-t">
+    <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-zinc-500 dark:text-zinc-400">
+      © 2025 trung87.link — Xây dựng với TailwindCSS (Level 2)
+    </div>
+  </footer>
+
+</body>
+</html>
