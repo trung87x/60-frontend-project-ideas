@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catalog — Level 2 (JS)</title>
+  <style>
+    :root{--bg:#0f1220;--card:#161a2b;--txt:#e5e7eb;--muted:#94a3b8;--accent:#7c3aed}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 10% 10%,#1e1b4b,#0b1020);color:var(--txt);min-height:100dvh}
+    header{padding:24px;text-align:center}
+    .container{width:min(1100px,92vw);margin:0 auto;padding-bottom:40px}
+    .toolbar{display:flex;gap:12px;flex-wrap:wrap;background:#0f1220;position:sticky;top:0;padding:12px;border-radius:12px;margin-bottom:14px}
+    input, select{background:#111536;border:1px solid #243; color:#e5e7eb;padding:10px 12px;border-radius:10px;outline:none}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    @media (max-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+    .card{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .thumb{width:100%;aspect-ratio:4/3;object-fit:cover}
+    .info{padding:12px}
+    .title{font-weight:700;font-size:16px;margin:4px 0}
+    .meta{display:flex;justify-content:space-between;color:var(--muted);font-size:14px}
+    .price{color:#a78bfa;font-weight:700}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🛍️ E-commerce Catalog</h1>
+    <p class="muted">JS: tìm kiếm, lọc, sắp xếp</p>
+  </header>
+  <main class="container">
+    <div class="toolbar">
+      <input id="q" placeholder="Tìm sản phẩm..." />
+      <select id="cat"><option value="">Tất cả danh mục</option></select>
+      <select id="sort">
+        <option value="">Sắp xếp</option>
+        <option value="price-asc">Giá ↑</option>
+        <option value="price-desc">Giá ↓</option>
+        <option value="title-asc">Tên A→Z</option>
+        <option value="title-desc">Tên Z→A</option>
+        <option value="rating-desc">Đánh giá cao</option>
+      </select>
+    </div>
+    <section id="grid" class="grid"></section>
+  </main>
+
+  <script>
+    const DATA = [
+  {
+    "id": 1,
+    "title": "Aurora Headphones",
+    "price": 89.99,
+    "rating": 4.5,
+    "category": "Audio",
+    "brand": "Aurora",
+    "thumbnail": "https://images.unsplash.com/photo-1518441315231-1d8fdbdcd0f1?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 2,
+    "title": "SwiftWatch S2",
+    "price": 129.0,
+    "rating": 4.2,
+    "category": "Wearables",
+    "brand": "Swift",
+    "thumbnail": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 3,
+    "title": "Nimbus Keyboard",
+    "price": 59.0,
+    "rating": 4.7,
+    "category": "Accessories",
+    "brand": "Nimbus",
+    "thumbnail": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 4,
+    "title": "Photon Desk Lamp",
+    "price": 39.5,
+    "rating": 4.1,
+    "category": "Home",
+    "brand": "Photon",
+    "thumbnail": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 5,
+    "title": "ZenBook Stand",
+    "price": 24.9,
+    "rating": 4.0,
+    "category": "Accessories",
+    "brand": "Zen",
+    "thumbnail": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 6,
+    "title": "PixelCam Mini",
+    "price": 159.0,
+    "rating": 4.6,
+    "category": "Cameras",
+    "brand": "PixelCam",
+    "thumbnail": "https://images.unsplash.com/photo-1526178618720-6a4bd4a73ca0?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 7,
+    "title": "Echo Speaker",
+    "price": 49.0,
+    "rating": 4.3,
+    "category": "Audio",
+    "brand": "Echo",
+    "thumbnail": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 8,
+    "title": "Glide Mouse",
+    "price": 19.9,
+    "rating": 4.1,
+    "category": "Accessories",
+    "brand": "Glide",
+    "thumbnail": "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 9,
+    "title": "Voyager Backpack",
+    "price": 69.0,
+    "rating": 4.8,
+    "category": "Travel",
+    "brand": "Voyager",
+    "thumbnail": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": 10,
+    "title": "Crescent Monitor 27\"",
+    "price": 229.0,
+    "rating": 4.4,
+    "category": "Displays",
+    "brand": "Crescent",
+    "thumbnail": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop"
+  }
+];
+
+    const grid = document.getElementById('grid')
+    const q = document.getElementById('q')
+    const cat = document.getElementById('cat')
+    const sort = document.getElementById('sort')
+
+    const cats = Array.from(new Set(DATA.map(p=>p.category)))
+    for(const c of cats){
+      const o = document.createElement('option'); o.value=c; o.textContent=c; cat.appendChild(o)
+    }
+
+    function render(items){
+      grid.innerHTML = items.map(p => `
+        <article class="card">
+          <img class="thumb" src="${p.thumbnail}" alt="${p.title}" />
+          <div class="info">
+            <h3 class="title">${p.title}</h3>
+            <div class="meta">
+              <span class="price">$${p.price.toFixed(2)}</span>
+              <span>${p.category} • ★${p.rating}</span>
+            </div>
+          </div>
+        </article>
+      `).join('')
+    }
+
+    function apply(){
+      let items = [...DATA]
+      const term = q.value.trim().toLowerCase()
+      if(term) items = items.filter(p => (p.title + ' ' + p.brand + ' ' + p.category).toLowerCase().includes(term))
+      if(cat.value) items = items.filter(p => p.category === cat.value)
+      switch(sort.value){
+        case 'price-asc': items.sort((a,b)=>a.price-b.price); break;
+        case 'price-desc': items.sort((a,b)=>b.price-a.price); break;
+        case 'title-asc': items.sort((a,b)=>a.title.localeCompare(b.title)); break;
+        case 'title-desc': items.sort((a,b)=>b.title.localeCompare(a.title)); break;
+        case 'rating-desc': items.sort((a,b)=>b.rating-a.rating); break;
+      }
+      render(items)
+    }
+
+    q.oninput = apply; cat.onchange = apply; sort.onchange = apply
+    render(DATA)
+  </script>
+</body>
+</html>

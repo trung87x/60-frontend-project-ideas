@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather Dashboard — Level 1 (HTML + CSS)</title>
+  <style>
+    :root{--bg:#0f1220;--card:#161a2b;--txt:#e5e7eb;--muted:#94a3b8;--accent:#7c3aed}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 10% 10%,#1e1b4b,#0b1020);color:var(--txt);min-height:100dvh}
+    header{padding:24px;text-align:center}
+    .container{width:min(1100px,92vw);margin:0 auto;padding-bottom:40px}
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .big{height:320px;display:grid;place-items:center;font-size:48px;font-weight:800;background:linear-gradient(135deg,#1b1838,#202a52)}
+    .row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .mini{height:120px;display:grid;place-items:center;border:1px solid #283055;border-radius:12px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>⛅ Weather Dashboard</h1>
+    <p class="muted">UI tĩnh: thẻ hiện tại & 5 ngày</p>
+  </header>
+  <main class="container">
+    <section class="grid">
+      <div class="card big">27°C — Hà Nội</div>
+      <aside class="card">
+        <h3 style="margin-top:0">Chỉ số</h3>
+        <p>Độ ẩm: 62%</p>
+        <p>Gió: 3.8 m/s</p>
+        <p>Thể cảm: 29°C</p>
+      </aside>
+    </section>
+    <section class="card" style="margin-top:16px">
+      <h3 style="margin-top:0">Dự báo 5 ngày</h3>
+      <div class="row">
+        <div class="mini">T2<br>31°/25°</div>
+        <div class="mini">T3<br>30°/24°</div>
+        <div class="mini">T4<br>29°/23°</div>
+        <div class="mini">T5<br>28°/23°</div>
+        <div class="mini">T6<br>30°/24°</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

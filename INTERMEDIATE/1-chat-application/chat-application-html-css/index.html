@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat — Level 1 (HTML + CSS)</title>
+  <style>
+    :root{--bg:#0f1220;--panel:#151a2f;--bubble:#1f2546;--accent:#7c3aed;--txt:#e5e7eb;--muted:#9aa2c7}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 10% 10%,#1e1b4b,#0b1020);color:var(--txt);min-height:100dvh;display:grid;place-items:center;padding:24px}
+    .chat{width:min(900px,96vw);height:80dvh;display:grid;grid-template-rows:auto 1fr auto;gap:12px}
+    header{display:flex;align-items:center;gap:12px;background:#0b1020;border:1px solid #242b55;border-radius:14px;padding:10px 12px}
+    header img{width:32px;height:32px;border-radius:999px;object-fit:cover}
+    main{background:var(--panel);border-radius:16px;padding:16px;overflow:auto;display:flex;flex-direction:column;gap:10px}
+    .row{display:flex;gap:10px;align-items:flex-end}
+    .me{justify-content:flex-end}
+    .bubble{max-width:60ch;padding:10px 12px;border-radius:14px;background:var(--bubble)}
+    .me .bubble{background:linear-gradient(90deg,#7c3aed,#06b6d4)}
+    .meta{font-size:12px;color:var(--muted);margin-top:4px}
+    .composer{display:flex;gap:10px}
+    .composer input{flex:1;padding:12px;border-radius:12px;border:1px solid #242b55;background:#0b1020;color:var(--txt);outline:none}
+    .composer button{padding:12px 16px;border-radius:12px;border:none;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:white;cursor:not-allowed}
+  </style>
+</head>
+<body>
+  <section class="chat">
+    <header>
+      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=256&auto=format&fit=crop" alt="bot" />
+      <div>
+        <div style="font-weight:700">Bot Trợ Lý</div>
+        <div class="meta">Luôn sẵn sàng trả lời</div>
+      </div>
+    </header>
+    <main>
+      <div class="row">
+        <div class="bubble">Xin chào! 👋 Mình là bot demo.</div>
+      </div>
+      <div class="row me">
+        <div class="bubble">Chào bot, mình đang xem Level 1!</div>
+      </div>
+    </main>
+    <div class="composer">
+      <input placeholder="Nhập tin nhắn..." disabled />
+      <button disabled>Gửi</button>
+    </div>
+  </section>
+</body>
+</html>

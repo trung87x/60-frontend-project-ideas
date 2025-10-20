@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather Dashboard — Level 2 (JS)</title>
+  <style>
+    :root{--bg:#0f1220;--card:#161a2b;--txt:#e5e7eb;--muted:#94a3b8;--accent:#7c3aed}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 10% 10%,#1e1b4b,#0b1020);color:var(--txt);min-height:100dvh}
+    header{padding:24px;text-align:center}
+    .container{width:min(1100px,92vw);margin:0 auto;padding-bottom:40px}
+    .controls{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
+    input, button{padding:10px 12px;border-radius:10px;border:1px solid #283055;background:#0b1020;color:#e5e7eb;outline:none}
+    button{background:linear-gradient(90deg,#7c3aed,#06b6d4);border:none;cursor:pointer}
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .big{height:320px;display:grid;place-items:center;font-size:42px;font-weight:800;background:linear-gradient(135deg,#1b1838,#202a52);text-align:center}
+    .row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .mini{height:120px;display:grid;place-items:center;border:1px solid #283055;border-radius:12px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>⛅ Weather Dashboard</h1>
+    <p class="muted">Nhập lat/lon → fetch Open-Meteo</p>
+  </header>
+  <main class="container">
+    <div class="controls">
+      <input id="lat" placeholder="Vĩ độ (ví dụ: 21.03)" />
+      <input id="lon" placeholder="Kinh độ (ví dụ: 105.85)" />
+      <button id="go">Lấy thời tiết</button>
+    </div>
+
+    <section class="grid">
+      <div id="current" class="card big">Chưa có dữ liệu</div>
+      <aside class="card">
+        <h3 style="margin-top:0">Chỉ số</h3>
+        <div id="stats">—</div>
+      </aside>
+    </section>
+    <section class="card" style="margin-top:16px">
+      <h3 style="margin-top:0">Dự báo 5 ngày</h3>
+      <div id="forecast" class="row"></div>
+    </section>
+  </main>
+
+  <script>
+    const q = (s)=> document.querySelector(s)
+    const lat = q('#lat'), lon = q('#lon'), go = q('#go')
+    const current = q('#current'), stats = q('#stats'), forecast = q('#forecast')
+
+    async function fetchWeather(lat, lon){
+      const url = new URL('https://api.open-meteo.com/v1/forecast')
+      url.search = new URLSearchParams({
+        latitude: lat, longitude: lon,
+        current: 'temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,weather_code',
+        daily: 'temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code',
+        timezone: 'auto'
+      })
+      const res = await fetch(url)
+      if(!res.ok) throw new Error('Fetch error')
+      return await res.json()
+    }
+
+    function wcToIcon(w){ // simple mapping
+      const m = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',61:'🌧️',71:'❄️',80:'🌧️',95:'⛈️'}
+      return m[w] || '🌡️'
+    }
+
+    function render(data){
+      const c = data.current
+      current.innerHTML = `${wcToIcon(c.weather_code)}<br>${Math.round(c.temperature_2m)}°C`
+      stats.innerHTML = `Độ ẩm: ${c.relative_humidity_2m}%<br>Gió: ${c.wind_speed_10m} m/s<br>Thể cảm: ${Math.round(c.apparent_temperature)}°C`
+      forecast.innerHTML = data.daily.time.slice(0,5).map((d, i)=>{
+        const hi = Math.round(data.daily.temperature_2m_max[i])
+        const lo = Math.round(data.daily.temperature_2m_min[i])
+        const code = data.daily.weather_code[i]
+        return `<div class="mini">${wcToIcon(code)}<br>${d}<br>${hi}°/${lo}°</div>`
+      }).join('')
+    }
+
+    go.addEventListener('click', async ()=>{
+      try{
+        current.textContent = 'Đang tải...'
+        const data = await fetchWeather(lat.value, lon.value)
+        render(data)
+      }catch(e){
+        current.textContent = 'Lỗi lấy dữ liệu'
+      }
+    })
+  </script>
+</body>
+</html>

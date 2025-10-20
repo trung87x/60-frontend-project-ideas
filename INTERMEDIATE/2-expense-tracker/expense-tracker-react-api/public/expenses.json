@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Cà phê",
+    "amount": 30000,
+    "date": "2025-10-20",
+    "category": "Food"
+  },
+  {
+    "title": "Xe bus",
+    "amount": 7000,
+    "date": "2025-10-20",
+    "category": "Transport"
+  }
+]

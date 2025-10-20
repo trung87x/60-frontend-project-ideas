@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog CMS — Level 3 (Tailwind)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-dvh bg-gradient-to-br from-slate-900 to-indigo-950 text-slate-100">
+  <header class="py-6 text-center">
+    <h1 class="text-2xl font-bold">📝 Blog CMS</h1>
+    <p class="text-slate-400">Tailwind UI hiện đại</p>
+  </header>
+
+  <main class="w-[min(1100px,92vw)] mx-auto pb-10">
+    <div class="sticky top-0 z-10 bg-slate-900/80 backdrop-blur rounded-xl p-3 flex flex-wrap gap-3 mb-4">
+      <input id="q" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 outline-none" placeholder="Tìm bài..." />
+      <select id="tag" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-700"></select>
+      <select id="sort" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-700">
+        <option value="newest">Mới nhất</option>
+        <option value="oldest">Cũ nhất</option>
+        <option value="title-asc">Tiêu đề A→Z</option>
+        <option value="title-desc">Tiêu đề Z→A</option>
+      </select>
+    </div>
+
+    <section id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></section>
+  </main>
+
+  <script>
+    const POSTS = [
+  {
+    "slug": "intro-tailwind",
+    "title": "Bắt đầu với TailwindCSS",
+    "date": "2025-09-10",
+    "tags": [
+      "css",
+      "tailwind"
+    ],
+    "excerpt": "Tại sao Tailwind lại hot? Cùng tạo UI nhanh với utility-first.",
+    "cover": "https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "slug": "react-hooks-101",
+    "title": "React Hooks 101",
+    "date": "2025-08-22",
+    "tags": [
+      "react",
+      "hooks"
+    ],
+    "excerpt": "useState, useEffect và tư duy hàm trong React hiện đại.",
+    "cover": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "slug": "nextjs-seo",
+    "title": "SEO cơ bản với Next.js",
+    "date": "2025-07-15",
+    "tags": [
+      "nextjs",
+      "seo"
+    ],
+    "excerpt": "Meta tags, Open Graph, sitemap cho site Next.js của bạn.",
+    "cover": "https://images.unsplash.com/photo-1497493292307-31c376b6e479?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "slug": "markdown-writing",
+    "title": "Viết blog bằng Markdown",
+    "date": "2025-06-18",
+    "tags": [
+      "markdown",
+      "writing"
+    ],
+    "excerpt": "Markdown là gì và cách dùng trong blog CMS tối giản.",
+    "cover": "https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1200&auto=format&fit=crop"
+  }
+];
+    const grid = document.getElementById('grid')
+    const q = document.getElementById('q')
+    const tag = document.getElementById('tag')
+    const sort = document.getElementById('sort')
+
+    const allTags = Array.from(new Set(POSTS.flatMap(p=>p.tags)))
+    tag.innerHTML = '<option value="">Tất cả tags</option>' + allTags.map(t=>`<option value="${t}">${t}</option>`).join('')
+
+    function card(p){
+      return `
+      <article class="bg-slate-900/70 rounded-xl overflow-hidden shadow-xl border border-slate-800">
+        <img class="w-full aspect-[4/3] object-cover" src="${p.cover}" alt="${p.title}" />
+        <div class="p-3">
+          <h3 class="font-semibold">${p.title}</h3>
+          <p class="text-slate-300 text-sm">${p.excerpt}</p>
+          <div class="flex items-center justify-between text-sm text-slate-400 mt-2">
+            <span>${p.date}</span>
+            <span>${p.tags.join(', ')}</span>
+          </div>
+        </div>
+      </article>`
+    }
+
+    function render(items){ grid.innerHTML = items.map(card).join('') }
+
+    function apply(){
+      let items = [...POSTS]
+      const term = q.value.trim().toLowerCase()
+      if(term) items = items.filter(p => (p.title + ' ' + p.excerpt + ' ' + p.tags.join(' ')).toLowerCase().includes(term))
+      if(tag.value) items = items.filter(p => p.tags.includes(tag.value))
+      switch(sort.value){
+        case 'newest': items.sort((a,b)=> b.date.localeCompare(a.date)); break;
+        case 'oldest': items.sort((a,b)=> a.date.localeCompare(b.date)); break;
+        case 'title-asc': items.sort((a,b)=> a.title.localeCompare(b.title)); break;
+        case 'title-desc': items.sort((a,b)=> b.title.localeCompare(a.title)); break;
+      }
+      render(items)
+    }
+
+    q.oninput = apply; tag.onchange = apply; sort.onchange = apply
+    apply()
+  </script>
+</body>
+</html>

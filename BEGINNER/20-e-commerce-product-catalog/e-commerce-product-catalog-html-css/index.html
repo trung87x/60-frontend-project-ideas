@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catalog — Level 1 (HTML + CSS)</title>
+  <style>
+    :root{--bg:#0f1220;--card:#161a2b;--txt:#e5e7eb;--muted:#94a3b8;--accent:#7c3aed}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 10% 10%,#1e1b4b,#0b1020);color:var(--txt);min-height:100dvh}
+    header{padding:24px;text-align:center}
+    .container{width:min(1100px,92vw);margin:0 auto;padding-bottom:40px}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    @media (max-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+    .card{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .thumb{width:100%;aspect-ratio:4/3;object-fit:cover}
+    .info{padding:12px}
+    .title{font-weight:700;font-size:16px;margin:4px 0}
+    .meta{display:flex;justify-content:space-between;color:var(--muted);font-size:14px}
+    .price{color:#a78bfa;font-weight:700}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🛍️ E-commerce Catalog</h1>
+    <p class="muted">Giao diện tĩnh — lưới sản phẩm</p>
+  </header>
+  <main class="container">
+    <section class="grid">
+      <article class="card">
+        <img class="thumb" src="https://images.unsplash.com/photo-1518441315231-1d8fdbdcd0f1?q=80&w=1200&auto=format&fit=crop" alt="Aurora Headphones" />
+        <div class="info">
+          <h3 class="title">Aurora Headphones</h3>
+          <div class="meta">
+            <span class="price">$89.99</span>
+            <span>Audio • ★4.5</span>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop" alt="SwiftWatch S2" />
+        <div class="info">
+          <h3 class="title">SwiftWatch S2</h3>
+          <div class="meta">
+            <span class="price">$129.00</span>
+            <span>Wearables • ★4.2</span>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop" alt="Nimbus Keyboard" />
+        <div class="info">
+          <h3 class="title">Nimbus Keyboard</h3>
+          <div class="meta">
+            <span class="price">$59.00</span>
+            <span>Accessories • ★4.7</span>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop" alt="Photon Desk Lamp" />
+        <div class="info">
+          <h3 class="title">Photon Desk Lamp</h3>
+          <div class="meta">
+            <span class="price">$39.50</span>
+            <span>Home • ★4.1</span>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
