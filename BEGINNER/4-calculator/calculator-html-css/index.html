@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator — Level 1 (HTML + CSS + JS cơ bản)</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container" aria-label="Máy tính cơ bản">
+      <section class="display" aria-live="polite" aria-atomic="true">
+        <output id="expr" class="expr" aria-label="Biểu thức">0</output>
+        <output id="result" class="result" aria-label="Kết quả">0</output>
+      </section>
+
+      <section class="keypad" role="group" aria-label="Bàn phím máy tính">
+        <!-- Hàng 1 -->
+        <button data-key="Escape" class="key fn wide" aria-label="Xóa tất cả (C)">C</button>
+        <button data-key="Backspace" class="key fn" aria-label="Xóa 1 ký tự (⌫)">⌫</button>
+        <button data-key="±" class="key fn" aria-label="Đổi dấu (±)">±</button>
+
+        <!-- Hàng 2 -->
+        <button data-key="7" class="key">7</button>
+        <button data-key="8" class="key">8</button>
+        <button data-key="9" class="key">9</button>
+        <button data-key="/" class="key op" aria-label="Chia">÷</button>
+
+        <!-- Hàng 3 -->
+        <button data-key="4" class="key">4</button>
+        <button data-key="5" class="key">5</button>
+        <button data-key="6" class="key">6</button>
+        <button data-key="*" class="key op" aria-label="Nhân">×</button>
+
+        <!-- Hàng 4 -->
+        <button data-key="1" class="key">1</button>
+        <button data-key="2" class="key">2</button>
+        <button data-key="3" class="key">3</button>
+        <button data-key="-" class="key op" aria-label="Trừ">−</button>
+
+        <!-- Hàng 5 -->
+        <button data-key="0" class="key zero">0</button>
+        <button data-key="." class="key">.</button>
+        <button data-key="+" class="key op" aria-label="Cộng">+</button>
+
+        <!-- Hàng 6 -->
+        <button data-key="Enter" class="key eq" aria-label="Bằng">=</button>
+      </section>
+      <p class="hint">Mẹo: Bạn có thể dùng bàn phím: 0‑9 . + − × ÷ Enter Backspace Escape</p>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

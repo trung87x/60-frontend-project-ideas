@@ -1,0 +1,62 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: #0b1220;
+  color: #e5e7eb;
+  min-height: 100vh;
+  display: grid; place-items: center;
+  padding: 24px;
+}
+.app {
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 280px;
+}
+@media (max-width: 820px) {
+  .app { grid-template-columns: 1fr; }
+}
+.panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  padding: 16px;
+}
+.display {
+  display: grid; gap: 6px; min-height: 96px;
+  background: #0f172a; border-radius: 12px; padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.expr { font-size: 12px; color: #94a3b8; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.result { font-size: 36px; font-weight: 800; text-align: right; letter-spacing: .5px; }
+.keypad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.key {
+  border: none; background: #1f2937; color: #e5e7eb;
+  padding: 14px 10px; font-size: 18px; border-radius: 12px;
+  cursor: pointer; transition: transform .03s ease, filter .15s ease;
+}
+.key:hover { filter: brightness(1.06); }
+.key:active { transform: translateY(1px); }
+.key-op { background: #334155; }
+.key-fn { background: #374151; }
+.key-eq { background: #2563eb; font-weight: 700; grid-column: 1 / -1; }
+.key.zero { grid-column: span 2; }
+.key.wide { grid-column: span 2; }
+.header { display:flex; align-items:center; justify-content:space-between; }
+.tabs { display:flex; gap:6px; }
+.tab {
+  padding: 6px 10px; border-radius: 10px; font-size: 12px; border:1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.04); color:#cbd5e1; cursor: pointer;
+}
+.tab[aria-selected="true"] { background:#2563eb; color:white; }
+.hist { max-height: 420px; overflow:auto; display:grid; gap:8px; }
+.hist-item {
+  padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03); display:flex; justify-content:space-between; gap:10px; font-size:14px;
+}
+.hist-item .expr { font-size: 12px; }
+.mem { display:flex; gap:8px; margin-top:8px; }
+.mem .key { font-size:14px; padding:10px; }
