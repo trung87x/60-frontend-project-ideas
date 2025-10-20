@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Recipe Finder — Cấp 2 (JavaScript)</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <main class="container">
+    <h1>🍳 Recipe Finder — Cấp 2</h1>
+    <section class="toolbar">
+      <input id="q" type="text" placeholder="Tìm công thức..."/>
+      <button id="btnSearch">Tìm</button>
+      <select id="tag">
+        <option value="">Tất cả thẻ</option>
+        <option>viet</option><option>pasta</option><option>salad</option><option>vegetarian</option><option>beef</option><option>chicken</option>
+      </select>
+    </section>
+    <section id="list" class="grid"></section>
+    <dialog id="dlg">
+      <article id="detail" class="dialog-card"></article>
+      <form method="dialog"><button>Đóng</button></form>
+    </dialog>
+  </main>
+  <script>const MOCK = [{"id": 1, "title": "Phở Bò", "time": 45, "servings": 2, "tags": ["viet", "noodle", "beef"], "ingredients": ["Bánh phở", "Thịt bò", "Hành, gừng", "Quế, hồi", "Nước dùng"], "steps": ["Nướng hành gừng", "Hầm xương / nước dùng", "Chần bánh phở", "Thái thịt bò", "Chan nước dùng và thưởng thức"]}, {"id": 2, "title": "Bún Chả", "time": 35, "servings": 2, "tags": ["viet", "grill", "pork"], "ingredients": ["Thịt ba rọi", "Bún tươi", "Nước mắm", "Rau sống", "Đu đủ chua"], "steps": ["Ướp thịt", "Nướng chả", "Pha nước chấm", "Luộc bún", "Dọn kèm rau"]}, {"id": 3, "title": "Mì Ý Sốt Cà", "time": 25, "servings": 2, "tags": ["italian", "pasta", "vegetarian"], "ingredients": ["Mì spaghetti", "Cà chua", "Hành tây", "Tỏi", "Dầu olive", "Basil"], "steps": ["Luộc mì", "Xào tỏi hành", "Nấu sốt cà", "Trộn mì với sốt", "Rắc basil"]}, {"id": 4, "title": "Cơm Gà", "time": 40, "servings": 3, "tags": ["viet", "rice", "chicken"], "ingredients": ["Gà", "Gạo", "Gừng", "Hành lá", "Muối tiêu"], "steps": ["Luộc gà", "Nấu cơm với nước gà", "Xé gà", "Pha nước mắm gừng", "Dọn kèm hành mỡ"]}, {"id": 5, "title": "Salad Hy Lạp", "time": 10, "servings": 2, "tags": ["greek", "salad", "vegetarian"], "ingredients": ["Dưa leo", "Cà chua", "Hành tây", "Ô liu", "Phô mai feta", "Dầu olive"], "steps": ["Cắt rau củ", "Trộn dầu olive", "Thêm phô mai và ô liu"]}]</script>
+  <script src="script.js"></script>
+</body>
+</html>

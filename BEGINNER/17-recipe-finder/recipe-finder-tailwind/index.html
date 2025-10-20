@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Recipe Finder — Cấp 3 (Tailwind)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-200">
+  <main class="mx-auto max-w-5xl p-6">
+    <h1 class="text-2xl font-bold mb-3">🍳 Recipe Finder — Cấp 3</h1>
+    <section class="flex gap-2 mb-3">
+      <input id="q" class="flex-1 rounded-xl bg-slate-950 border border-slate-700 px-3 py-2" placeholder="Tìm công thức hoặc nguyên liệu..."/>
+      <button id="btnSearch" class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2">Tìm</button>
+      <select id="tag" class="rounded-xl bg-slate-950 border border-slate-700 px-3 py-2">
+        <option value="">Tất cả thẻ</option>
+        <option>viet</option><option>pasta</option><option>salad</option><option>vegetarian</option><option>beef</option><option>chicken</option>
+      </select>
+    </section>
+    <section id="list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-3"></section>
+    <dialog id="dlg" class="rounded-2xl">
+      <article id="detail" class="bg-slate-900/80 border border-slate-700 rounded-2xl p-4 max-w-xl"></article>
+      <form method="dialog" class="mt-2"><button class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2">Đóng</button></form>
+    </dialog>
+  </main>
+  <script>const MOCK = [{"id": 1, "title": "Phở Bò", "time": 45, "servings": 2, "tags": ["viet", "noodle", "beef"], "ingredients": ["Bánh phở", "Thịt bò", "Hành, gừng", "Quế, hồi", "Nước dùng"], "steps": ["Nướng hành gừng", "Hầm xương / nước dùng", "Chần bánh phở", "Thái thịt bò", "Chan nước dùng và thưởng thức"]}, {"id": 2, "title": "Bún Chả", "time": 35, "servings": 2, "tags": ["viet", "grill", "pork"], "ingredients": ["Thịt ba rọi", "Bún tươi", "Nước mắm", "Rau sống", "Đu đủ chua"], "steps": ["Ướp thịt", "Nướng chả", "Pha nước chấm", "Luộc bún", "Dọn kèm rau"]}, {"id": 3, "title": "Mì Ý Sốt Cà", "time": 25, "servings": 2, "tags": ["italian", "pasta", "vegetarian"], "ingredients": ["Mì spaghetti", "Cà chua", "Hành tây", "Tỏi", "Dầu olive", "Basil"], "steps": ["Luộc mì", "Xào tỏi hành", "Nấu sốt cà", "Trộn mì với sốt", "Rắc basil"]}, {"id": 4, "title": "Cơm Gà", "time": 40, "servings": 3, "tags": ["viet", "rice", "chicken"], "ingredients": ["Gà", "Gạo", "Gừng", "Hành lá", "Muối tiêu"], "steps": ["Luộc gà", "Nấu cơm với nước gà", "Xé gà", "Pha nước mắm gừng", "Dọn kèm hành mỡ"]}, {"id": 5, "title": "Salad Hy Lạp", "time": 10, "servings": 2, "tags": ["greek", "salad", "vegetarian"], "ingredients": ["Dưa leo", "Cà chua", "Hành tây", "Ô liu", "Phô mai feta", "Dầu olive"], "steps": ["Cắt rau củ", "Trộn dầu olive", "Thêm phô mai và ô liu"]}]</script>
+  <script>
+function card(r){return `<article class="bg-slate-900/70 border border-slate-700 rounded-2xl p-4 grid gap-2">
+  <h3 class="text-lg font-semibold">${r.title}</h3>
+  <p class="text-slate-400">⏱️ ${r.time} phút • 👥 ${r.servings} khẩu phần</p>
+  <div class="flex flex-wrap gap-1">${r.tags.map(t=>`<span class="text-xs border border-slate-700 bg-slate-950 rounded-full px-2 py-1">#${t}</span>`).join(' ')}</div>
+  <button data-id="${r.id}" class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 w-fit">Xem chi tiết</button>
+</article>`}
+const list=document.getElementById('list'), dlg=document.getElementById('dlg'), detail=document.getElementById('detail')
+function render(items){ list.innerHTML = items.length? items.map(card).join('') : '<p>Không có kết quả.</p>'; list.querySelectorAll('button[data-id]').forEach(b=> b.onclick=()=>openDetail(+b.dataset.id)) }
+function search(){ const q=(qEl.value||'').toLowerCase().trim(); const tag=tagEl.value; const items=MOCK.filter(r=>{const hitQ=!q||r.title.toLowerCase().includes(q)||r.ingredients.join(' ').toLowerCase().includes(q); const hitT=!tag||r.tags.includes(tag); return hitQ&&hitT}); render(items) }
+function openDetail(id){ const r=MOCK.find(x=>x.id===id); if(!r) return; detail.innerHTML=`<h2 class="text-xl font-semibold mb-1">${r.title}</h2><p class="text-slate-400 mb-2">⏱️ ${r.time} phút • 👥 ${r.servings} khẩu phần</p><h4 class="font-semibold">Nguyên liệu</h4><ul class="list-disc pl-5 mb-2">${r.ingredients.map(i=>`<li>${i}</li>`).join('')}</ul><h4 class="font-semibold">Các bước</h4><ol class="list-decimal pl-5">${r.steps.map(s=>`<li>${s}</li>`).join('')}</ol>`; dlg.showModal() }
+const qEl=document.getElementById('q'), tagEl=document.getElementById('tag'); document.getElementById('btnSearch').onclick=search; tagEl.onchange=search; search()
+  </script>
+</body>
+</html>
