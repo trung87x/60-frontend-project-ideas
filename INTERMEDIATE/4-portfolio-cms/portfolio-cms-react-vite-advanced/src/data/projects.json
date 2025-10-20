@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Landing Page",
+    "desc": "Trang giới thiệu sản phẩm.",
+    "image": "/images/p1.jpg",
+    "body": "Nội dung chi tiết dự án Landing Page."
+  },
+  {
+    "id": 2,
+    "title": "Dashboard",
+    "desc": "Phân tích số liệu.",
+    "image": "/images/p2.jpg",
+    "body": "Nội dung chi tiết dự án Dashboard."
+  },
+  {
+    "id": 3,
+    "title": "Blog",
+    "desc": "Chia sẻ bài viết kỹ thuật.",
+    "image": "/images/p3.jpg",
+    "body": "Nội dung chi tiết dự án Blog."
+  }
+]

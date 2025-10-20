@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather Geolocation — Level 3 (Tailwind)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-dvh bg-gradient-to-br from-slate-900 to-indigo-950 text-slate-100">
+  <header class="py-6 text-center">
+    <h1 class="text-2xl font-bold">📍 Weather App — Tailwind</h1>
+    <p class="text-slate-400">Hiển thị trạng thái permission + loader</p>
+  </header>
+
+  <main class="w-[min(1100px,92vw)] mx-auto pb-10">
+    <section id="hero" class="rounded-2xl p-10 text-center text-5xl font-extrabold bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-800">Đang chờ vị trí…</section>
+    <div id="status" class="text-slate-300 mt-2"></div>
+
+    <section class="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-4 mt-4">
+      <aside class="rounded-2xl p-4 bg-slate-900/70 border border-slate-800">
+        <h3 class="font-semibold">Chỉ số</h3>
+        <div id="stats">—</div>
+      </aside>
+      <div class="rounded-2xl p-4 bg-slate-900/70 border border-slate-800">
+        <h3 class="font-semibold">Dự báo 5 ngày</h3>
+        <div id="forecast" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const hero = document.getElementById('hero')
+    const statusEl = document.getElementById('status')
+    const stats = document.getElementById('stats')
+    const forecast = document.getElementById('forecast')
+
+    function wcToIcon(w){ const m = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',61:'🌧️',71:'❄️',80:'🌧️',95:'⛈️'}; return m[w] || '🌡️' }
+
+    async function reverseName(lat, lon){
+      const url = new URL('https://geocoding-api.open-meteo.com/v1/reverse')
+      url.search = new URLSearchParams({ latitude: lat, longitude: lon, language: 'vi' })
+      const r = await fetch(url); if(!r.ok) return ''
+      const d = await r.json(); return d?.results?.[0]?.name || ''
+    }
+
+    async function fetchWeather(lat, lon){
+      const url = new URL('https://api.open-meteo.com/v1/forecast')
+      url.search = new URLSearchParams({
+        latitude: lat, longitude: lon, timezone: 'auto',
+        current: 'temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,weather_code',
+        daily: 'temperature_2m_max,temperature_2m_min,weather_code'
+      })
+      const res = await fetch(url); if(!res.ok) throw new Error('Weather failed')
+      return await res.json()
+    }
+
+    function render(data, name){
+      const c = data.current
+      hero.innerHTML = `${wcToIcon(c.weather_code)}<div class="text-6xl mt-2">${Math.round(c.temperature_2m)}°C</div><div class="text-xl text-slate-300 mt-2">${name||''}</div>`
+      stats.innerHTML = `Độ ẩm: ${c.relative_humidity_2m}%<br>Gió: ${c.wind_speed_10m} m/s<br>Thể cảm: ${Math.round(c.apparent_temperature)}°C`
+      forecast.innerHTML = data.daily.time.slice(0,5).map((d,i)=>{
+        const hi = Math.round(data.daily.temperature_2m_max[i]); const lo = Math.round(data.daily.temperature_2m_min[i]); const code = data.daily.weather_code[i]
+        return `<div class="rounded-xl border border-slate-800 p-3 text-center">${wcToIcon(code)}<div class="text-sm">${d}</div><div class="font-semibold">${hi}°/${lo}°</div></div>`
+      }).join('')
+    }
+
+    function getLocation(){
+      if(!navigator.geolocation){ statusEl.textContent = 'Trình duyệt không hỗ trợ geolocation.'; return }
+      statusEl.textContent = 'Đang yêu cầu quyền truy cập vị trí…'
+      navigator.geolocation.getCurrentPosition(async (pos)=>{
+        const { latitude: lat, longitude: lon } = pos.coords
+        statusEl.textContent = `Vĩ độ: ${lat.toFixed(4)}, Kinh độ: ${lon.toFixed(4)}`
+        hero.textContent = 'Đang tải thời tiết…'
+        try{
+          const [name, data] = await Promise.all([reverseName(lat, lon), fetchWeather(lat, lon)])
+          render(data, name)
+        }catch(e){ hero.textContent = 'Lỗi lấy dữ liệu thời tiết.' }
+      }, (err)=>{
+        statusEl.textContent = 'Không lấy được vị trí: ' + err.message
+        hero.textContent = 'Cần quyền vị trí để hiển thị.'
+      }, { enableHighAccuracy:true, timeout:10000, maximumAge:0 })
+    }
+    getLocation()
+  </script>
+</body>
+</html>

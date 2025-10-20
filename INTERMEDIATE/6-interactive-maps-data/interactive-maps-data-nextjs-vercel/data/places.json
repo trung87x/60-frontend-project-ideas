@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Hà Nội",
+    "lat": 21.0278,
+    "lon": 105.8342,
+    "category": "City",
+    "value": 92
+  },
+  {
+    "id": 2,
+    "name": "Hồ Chí Minh",
+    "lat": 10.8231,
+    "lon": 106.6297,
+    "category": "City",
+    "value": 98
+  },
+  {
+    "id": 3,
+    "name": "Đà Nẵng",
+    "lat": 16.0544,
+    "lon": 108.2022,
+    "category": "City",
+    "value": 85
+  },
+  {
+    "id": 4,
+    "name": "Huế",
+    "lat": 16.4637,
+    "lon": 107.5909,
+    "category": "Heritage",
+    "value": 74
+  },
+  {
+    "id": 5,
+    "name": "Cần Thơ",
+    "lat": 10.0452,
+    "lon": 105.7469,
+    "category": "City",
+    "value": 63
+  },
+  {
+    "id": 6,
+    "name": "Nha Trang",
+    "lat": 12.2388,
+    "lon": 109.1967,
+    "category": "Resort",
+    "value": 80
+  },
+  {
+    "id": 7,
+    "name": "Hạ Long",
+    "lat": 20.9714,
+    "lon": 107.0448,
+    "category": "Nature",
+    "value": 77
+  },
+  {
+    "id": 8,
+    "name": "Đà Lạt",
+    "lat": 11.9404,
+    "lon": 108.4583,
+    "category": "Resort",
+    "value": 70
+  },
+  {
+    "id": 9,
+    "name": "Hải Phòng",
+    "lat": 20.8449,
+    "lon": 106.6881,
+    "category": "Port",
+    "value": 68
+  },
+  {
+    "id": 10,
+    "name": "Vinh",
+    "lat": 18.6796,
+    "lon": 105.6813,
+    "category": "City",
+    "value": 55
+  },
+  {
+    "id": 11,
+    "name": "Quy Nhơn",
+    "lat": 13.7829,
+    "lon": 109.2196,
+    "category": "Resort",
+    "value": 66
+  },
+  {
+    "id": 12,
+    "name": "Phú Quốc",
+    "lat": 10.2899,
+    "lon": 103.984,
+    "category": "Island",
+    "value": 72
+  }
+]

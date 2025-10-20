@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tasks — Level 3 (Tailwind)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-dvh bg-gradient-to-br from-slate-900 to-indigo-950 text-slate-100">
+  <header class="py-6 text-center">
+    <h1 class="text-2xl font-bold">✅ Task Management — Tailwind</h1>
+    <p class="text-slate-400">Search, filter, counters, localStorage</p>
+  </header>
+
+  <main class="w-[min(1000px,92vw)] mx-auto pb-10">
+    <div class="sticky top-0 z-10 bg-slate-900/80 backdrop-blur p-3 rounded-xl border border-slate-800 flex flex-wrap gap-2 mb-3">
+      <input id="title" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 outline-none" placeholder="Thêm công việc...">
+      <input id="due" type="date" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-700">
+      <select id="priority" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-700">
+        <option value="high">High</option>
+        <option value="medium" selected>Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <button id="add" class="px-3 py-2 rounded-lg bg-gradient-to-r from-indigo-500 to-cyan-500">Thêm</button>
+      <input id="q" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 outline-none ml-auto" placeholder="Search...">
+      <select id="filter" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-700">
+        <option value="all">All</option><option value="active">Active</option><option value="done">Done</option>
+      </select>
+      <select id="sort" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-700">
+        <option value="due-asc">Due ↑</option><option value="due-desc">Due ↓</option>
+        <option value="prio-desc">Priority</option>
+      </select>
+      <span id="count" class="px-2 py-1 rounded bg-slate-800 text-slate-300">0 items</span>
+    </div>
+
+    <section id="list" class="grid gap-2"></section>
+  </main>
+
+  <script>
+    const list = document.getElementById('list')
+    const title = document.getElementById('title')
+    const due = document.getElementById('due')
+    const priority = document.getElementById('priority')
+    const addBtn = document.getElementById('add')
+    const q = document.getElementById('q')
+    const filter = document.getElementById('filter')
+    const sort = document.getElementById('sort')
+    const count = document.getElementById('count')
+
+    function uid(){ return Math.random().toString(36).slice(2,9) }
+    function load(){ try{ return JSON.parse(localStorage.getItem('tasks:v1')||'[]') }catch{ return [] } }
+    function save(){ localStorage.setItem('tasks:v1', JSON.stringify(tasks)) }
+
+    let tasks = load()
+    if(!tasks.length){
+      tasks = [{id:'s1',title:'Demo task',done:false,priority:'medium',due:''}]; save()
+    }
+
+    function prioWeight(p){ return p==='high'?3: p==='medium'?2:1 }
+
+    function render(){
+      let items = [...tasks]
+      const term = q.value.trim().toLowerCase()
+      if(term) items = items.filter(t => t.title.toLowerCase().includes(term))
+      if(filter.value==='active') items = items.filter(t=>!t.done)
+      if(filter.value==='done') items = items.filter(t=>t.done)
+      switch(sort.value){
+        case 'due-asc': items.sort((a,b)=>(a.due||'9999').localeCompare(b.due||'9999')); break;
+        case 'due-desc': items.sort((a,b)=>(b.due||'').localeCompare(a.due||'')); break;
+        case 'prio-desc': items.sort((a,b)=> prioWeight(b.priority)-prioWeight(a.priority)); break;
+      }
+      count.textContent = `${items.length} items`
+      list.innerHTML = items.map(t => `
+        <div class="grid grid-cols-[auto,1fr,auto] items-center gap-3 bg-slate-900/70 border border-slate-800 rounded-xl px-3 py-2 ${t.done?'opacity-70':''}">
+          <input type="checkbox" ${t.done?'checked':''} onchange="toggleTask('${t.id}')">
+          <div>
+            <div class="font-semibold ${t.done?'line-through':''}">${t.title}</div>
+            <div class="text-xs text-slate-400">Due: ${t.due||'-'}</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs px-2 py-1 rounded bg-slate-800 border border-slate-700">${t.priority}</span>
+            <button class="text-xs px-2 py-1 rounded bg-slate-800 border border-slate-700" onclick="delTask('${t.id}')">Xoá</button>
+          </div>
+        </div>
+      `).join('')
+    }
+
+    window.toggleTask = (id)=>{ const t = tasks.find(x=>x.id===id); if(t){ t.done=!t.done; save(); render() } }
+    window.delTask = (id)=>{ tasks = tasks.filter(x=>x.id!==id); save(); render() }
+
+    addBtn.onclick = ()=>{
+      const t = title.value.trim(); if(!t) return
+      tasks.unshift({ id: uid(), title: t, done:false, priority: priority.value, due: due.value })
+      title.value=''; due.value=''; save(); render()
+    }
+    q.oninput = render; filter.onchange = render; sort.onchange = render
+    render()
+  </script>
+</body>
+</html>

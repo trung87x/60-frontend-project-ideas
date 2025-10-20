@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather Geolocation — Level 2 (JS)</title>
+  <style>
+    :root{--bg:#0f1220;--card:#161a2b;--txt:#e5e7eb;--muted:#94a3b8}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 10% 10%,#1e1b4b,#0b1020);color:var(--txt);min-height:100dvh}
+    header{padding:24px;text-align:center}
+    .wrap{width:min(1100px,92vw);margin:0 auto;padding-bottom:40px}
+    .hero{background:linear-gradient(135deg,#1b1838,#0f1220);border-radius:16px;padding:24px;text-align:center;font-weight:800;font-size:42px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-top:16px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border-radius:16px;padding:16px}
+    .row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .mini{height:120px;display:grid;place-items:center;border:1px solid #283055;border-radius:12px}
+    .status{margin-top:8px;color:#94a3b8}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📍 Weather App — Geolocation + Open-Meteo</h1>
+    <p class="muted">Bật quyền truy cập vị trí để xem thời tiết quanh bạn</p>
+  </header>
+  <main class="wrap">
+    <section class="hero" id="hero">Đang chờ vị trí…</section>
+    <div class="status" id="status"></div>
+    <section class="grid">
+      <aside class="card">
+        <h3>Chỉ số</h3>
+        <div id="stats">—</div>
+      </aside>
+      <div class="card">
+        <h3>Dự báo 5 ngày</h3>
+        <div id="forecast" class="row"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const hero = document.getElementById('hero')
+    const statusEl = document.getElementById('status')
+    const stats = document.getElementById('stats')
+    const forecast = document.getElementById('forecast')
+
+    function wcToIcon(w){
+      const m = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',61:'🌧️',71:'❄️',80:'🌧️',95:'⛈️'}
+      return m[w] || '🌡️'
+    }
+
+    async function fetchWeather(lat, lon){
+      const url = new URL('https://api.open-meteo.com/v1/forecast')
+      url.search = new URLSearchParams({
+        latitude: lat, longitude: lon, timezone: 'auto',
+        current: 'temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,weather_code',
+        daily: 'temperature_2m_max,temperature_2m_min,weather_code'
+      })
+      const res = await fetch(url); if(!res.ok) throw new Error('Weather failed')
+      return await res.json()
+    }
+
+    function render(data){
+      const c = data.current
+      hero.innerHTML = `${wcToIcon(c.weather_code)}<br>${Math.round(c.temperature_2m)}°C`
+      stats.innerHTML = `Độ ẩm: ${c.relative_humidity_2m}%<br>Gió: ${c.wind_speed_10m} m/s<br>Thể cảm: ${Math.round(c.apparent_temperature)}°C`
+      forecast.innerHTML = data.daily.time.slice(0,5).map((d,i)=>{
+        const hi = Math.round(data.daily.temperature_2m_max[i])
+        const lo = Math.round(data.daily.temperature_2m_min[i])
+        const code = data.daily.weather_code[i]
+        return `<div class="mini">${wcToIcon(code)}<br>${d}<br>${hi}°/${lo}°</div>`
+      }).join('')
+    }
+
+    function getLocation(){
+      if(!navigator.geolocation){
+        statusEl.textContent = 'Trình duyệt không hỗ trợ geolocation.'
+        return
+      }
+      statusEl.textContent = 'Đang yêu cầu quyền truy cập vị trí…'
+      navigator.geolocation.getCurrentPosition(async (pos)=>{
+        statusEl.textContent = `Vĩ độ: ${pos.coords.latitude.toFixed(4)}, Kinh độ: ${pos.coords.longitude.toFixed(4)}`
+        hero.textContent = 'Đang tải thời tiết…'
+        try{
+          const data = await fetchWeather(pos.coords.latitude, pos.coords.longitude)
+          render(data)
+        }catch(e){
+          hero.textContent = 'Lỗi lấy dữ liệu thời tiết.'
+        }
+      }, (err)=>{
+        statusEl.textContent = 'Không lấy được vị trí: ' + err.message
+        hero.textContent = 'Cần quyền vị trí để hiển thị.'
+      }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 })
+    }
+
+    getLocation()
+  </script>
+</body>
+</html>

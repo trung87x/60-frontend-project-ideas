@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz — Level 2 (JS)</title>
+  <style>
+    :root{--card:#161a2b;--txt:#e5e7eb}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(135deg,#0b1020,#1b1630);color:var(--txt)}
+    header{text-align:center;padding:18px}
+    .wrap{width:min(900px,92vw);margin:0 auto}
+    .toolbar{display:flex;gap:8px;align-items:center;margin:8px 0}
+    .card{background:var(--card);border-radius:16px;padding:16px}
+    .choices{display:grid;gap:8px;margin-top:12px}
+    button.choice{padding:10px 12px;border:1px solid #283055;border-radius:12px;background:#0f1220;color:#e5e7eb;text-align:left}
+    .correct{border-color:#22c55e} .wrong{border-color:#ef4444}
+    .meta{opacity:.8;font-size:14px}
+  </style>
+</head>
+<body>
+  <header><h1>🧠 Quiz — JS logic</h1></header>
+  <main class="wrap">
+    <div class="toolbar">
+      <button id="prev">←</button>
+      <div id="progress">Câu 1/—</div>
+      <button id="next">→</button>
+      <div style="margin-left:auto">⏱ <span id="timer">60</span>s</div>
+    </div>
+    <article class="card">
+      <div class="meta" id="meta"></div>
+      <h3 id="question"></h3>
+      <div id="choices" class="choices"></div>
+      <div id="explain" class="meta" style="margin-top:8px"></div>
+    </article>
+    <p id="result"></p>
+  </main>
+  <script>
+    const DATA = {
+  "categories": [
+    "HTML/CSS",
+    "JavaScript",
+    "React"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "category": "HTML/CSS",
+      "text": "Thẻ nào dùng để hiển thị hình ảnh?",
+      "choices": [
+        "<image>",
+        "<img>",
+        "<pic>",
+        "<figure>"
+      ],
+      "answer": 1,
+      "explain": "Thẻ chuẩn để nhúng ảnh là <img> và cần thuộc tính src."
+    },
+    {
+      "id": "q2",
+      "category": "HTML/CSS",
+      "text": "Thuộc tính CSS nào dùng để căn phần tử con theo trục chính trong Flexbox?",
+      "choices": [
+        "align-items",
+        "justify-content",
+        "place-content",
+        "justify-items"
+      ],
+      "answer": 1,
+      "explain": "Trong Flexbox, justify-content căn theo trục chính."
+    },
+    {
+      "id": "q3",
+      "category": "JavaScript",
+      "text": "Giá trị của typeof null là gì?",
+      "choices": [
+        "\"object\"",
+        "\"null\"",
+        "\"undefined\"",
+        "\"number\""
+      ],
+      "answer": 0,
+      "explain": "Lịch sử JS khiến typeof null trả về \"object\"."
+    },
+    {
+      "id": "q4",
+      "category": "JavaScript",
+      "text": "Phương thức nào biến chuỗi JSON thành object?",
+      "choices": [
+        "JSON.parse()",
+        "JSON.stringify()",
+        "Object.from()",
+        "evalJSON()"
+      ],
+      "answer": 0,
+      "explain": "JSON.parse() chuyển JSON string thành object."
+    },
+    {
+      "id": "q5",
+      "category": "React",
+      "text": "Hook nào dùng để quản lý state?",
+      "choices": [
+        "useMemo",
+        "useState",
+        "useRef",
+        "useContext"
+      ],
+      "answer": 1,
+      "explain": "useState trả về state và hàm cập nhật."
+    },
+    {
+      "id": "q6",
+      "category": "React",
+      "text": "Khi nào nên dùng key cho list trong React?",
+      "choices": [
+        "Khi render component bất kỳ",
+        "Chỉ khi có hơn 10 items",
+        "Khi lặp qua danh sách động",
+        "Không bao giờ cần"
+      ],
+      "answer": 2,
+      "explain": "Key giúp React xác định phần tử nào thay đổi khi render danh sách."
+    },
+    {
+      "id": "q7",
+      "category": "JavaScript",
+      "text": "Kết quả của [1,2,3].map(x=>x*2) là gì?",
+      "choices": [
+        "[2,3,4]",
+        "[2,4,6]",
+        "[1,2,3,2,4,6]",
+        "Lỗi"
+      ],
+      "answer": 1,
+      "explain": "map áp dụng hàm lên từng phần tử và trả mảng mới."
+    },
+    {
+      "id": "q8",
+      "category": "HTML/CSS",
+      "text": "Thuộc tính nào tạo bo góc?",
+      "choices": [
+        "border-collapse",
+        "border-radius",
+        "outline-radius",
+        "corner-radius"
+      ],
+      "answer": 1,
+      "explain": "border-radius tạo góc bo tròn."
+    },
+    {
+      "id": "q9",
+      "category": "React",
+      "text": "Props trong React là:",
+      "choices": [
+        "Có thể thay đổi bởi component con",
+        "Bất biến từ góc nhìn component nhận",
+        "Luôn là bắt buộc",
+        "Chỉ là chuỗi"
+      ],
+      "answer": 1,
+      "explain": "Props là dữ liệu bất biến đối với component nhận."
+    },
+    {
+      "id": "q10",
+      "category": "JavaScript",
+      "text": "let và var khác nhau chủ yếu ở:",
+      "choices": [
+        "Phạm vi & hoisting",
+        "Tốc độ thực thi",
+        "Chỉ có trong Node.js",
+        "Không khác nhau"
+      ],
+      "answer": 0,
+      "explain": "let có block scope và không hoist theo cách giống var."
+    }
+  ]
+};
+    let idx = 0, score = 0, left = 60, answered = {}
+    const qEl = document.getElementById('question')
+    const cEl = document.getElementById('choices')
+    const meta = document.getElementById('meta')
+    const ex = document.getElementById('explain')
+    const progress = document.getElementById('progress')
+    const timer = document.getElementById('timer')
+    function render(){
+      const q = DATA.questions[idx]
+      progress.textContent = `Câu ${idx+1}/${DATA.questions.length}`
+      meta.textContent = 'Chủ đề: ' + q.category
+      qEl.textContent = q.text
+      ex.textContent = ''
+      cEl.innerHTML = q.choices.map((ch,i)=> `<button class="choice" data-i="${i}">${ch}</button>`).join('')
+      cEl.querySelectorAll('button.choice').forEach(btn => {
+        btn.onclick = ()=>{
+          if(answered[q.id] != null) return
+          const pick = Number(btn.dataset.i)
+          answered[q.id] = pick
+          if(pick === q.answer){ score++; btn.classList.add('correct') } else { btn.classList.add('wrong') }
+          ex.textContent = 'Giải thích: ' + q.explain
+          document.getElementById('result').textContent = `Điểm: ${score}/${DATA.questions.length}`
+        }
+      })
+    }
+    document.getElementById('prev').onclick = ()=>{ if(idx>0){ idx--; render() } }
+    document.getElementById('next').onclick = ()=>{ if(idx<DATA.questions.length-1){ idx++; render() } }
+    setInterval(()=>{ left--; timer.textContent = left; if(left<=0){ alert('Hết giờ!'); } }, 1000)
+    render()
+  </script>
+</body>
+</html>

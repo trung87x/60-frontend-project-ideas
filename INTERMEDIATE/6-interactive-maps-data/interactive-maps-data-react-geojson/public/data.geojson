@@ -1,0 +1,197 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "name": "Hà Nội",
+        "category": "City",
+        "value": 92
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.8342,
+          21.0278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "name": "Hồ Chí Minh",
+        "category": "City",
+        "value": 98
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.6297,
+          10.8231
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "name": "Đà Nẵng",
+        "category": "City",
+        "value": 85
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2022,
+          16.0544
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "name": "Huế",
+        "category": "Heritage",
+        "value": 74
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          107.5909,
+          16.4637
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 5,
+        "name": "Cần Thơ",
+        "category": "City",
+        "value": 63
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.7469,
+          10.0452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 6,
+        "name": "Nha Trang",
+        "category": "Resort",
+        "value": 80
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.1967,
+          12.2388
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 7,
+        "name": "Hạ Long",
+        "category": "Nature",
+        "value": 77
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          107.0448,
+          20.9714
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 8,
+        "name": "Đà Lạt",
+        "category": "Resort",
+        "value": 70
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.4583,
+          11.9404
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 9,
+        "name": "Hải Phòng",
+        "category": "Port",
+        "value": 68
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.6881,
+          20.8449
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10,
+        "name": "Vinh",
+        "category": "City",
+        "value": 55
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.6813,
+          18.6796
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11,
+        "name": "Quy Nhơn",
+        "category": "Resort",
+        "value": 66
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.2196,
+          13.7829
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 12,
+        "name": "Phú Quốc",
+        "category": "Island",
+        "value": 72
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.984,
+          10.2899
+        ]
+      }
+    }
+  ]
+}

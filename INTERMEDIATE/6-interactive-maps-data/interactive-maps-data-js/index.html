@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Maps — Level 2 (JS + Leaflet)</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(135deg,#0b1020,#1b1630);color:#e5e7eb}
+    header{text-align:center;padding:16px}
+    #map{height:80dvh;border-radius:12px;margin:0 12px 16px 12px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .leaflet-container{filter: drop-shadow(0 6px 18px rgba(0,0,0,.35))}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🗺️ Leaflet cơ bản</h1>
+    <p>Markers từ mảng dữ liệu</p>
+  </header>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const PLACES = [{"id": 1, "name": "Hà Nội", "lat": 21.0278, "lon": 105.8342, "category": "City", "value": 92}, {"id": 2, "name": "Hồ Chí Minh", "lat": 10.8231, "lon": 106.6297, "category": "City", "value": 98}, {"id": 3, "name": "Đà Nẵng", "lat": 16.0544, "lon": 108.2022, "category": "City", "value": 85}, {"id": 4, "name": "Huế", "lat": 16.4637, "lon": 107.5909, "category": "Heritage", "value": 74}, {"id": 5, "name": "Cần Thơ", "lat": 10.0452, "lon": 105.7469, "category": "City", "value": 63}, {"id": 6, "name": "Nha Trang", "lat": 12.2388, "lon": 109.1967, "category": "Resort", "value": 80}, {"id": 7, "name": "Hạ Long", "lat": 20.9714, "lon": 107.0448, "category": "Nature", "value": 77}, {"id": 8, "name": "Đà Lạt", "lat": 11.9404, "lon": 108.4583, "category": "Resort", "value": 70}, {"id": 9, "name": "Hải Phòng", "lat": 20.8449, "lon": 106.6881, "category": "Port", "value": 68}, {"id": 10, "name": "Vinh", "lat": 18.6796, "lon": 105.6813, "category": "City", "value": 55}, {"id": 11, "name": "Quy Nhơn", "lat": 13.7829, "lon": 109.2196, "category": "Resort", "value": 66}, {"id": 12, "name": "Phú Quốc", "lat": 10.2899, "lon": 103.984, "category": "Island", "value": 72}];
+    const map = L.map('map').setView([16.3, 106.0], 5.5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
+
+    for(const p of PLACES){
+      const m = L.marker([p.lat, p.lon]).addTo(map);
+      m.bindPopup(`<b>${p.name}</b><br>Loại: ${p.category}<br>Điểm: ${p.value}`);
+    }
+  </script>
+</body>
+</html>
