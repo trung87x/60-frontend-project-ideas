@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Responsive Navbar</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="icon" href="data:,">
+
+</head>
+<body class="min-h-dvh bg-slate-50 text-slate-800">
+
+<header class="bg-white border-b">
+  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="font-bold">Brand</div>
+    <button id="menuBtn" class="md:hidden border rounded px-3 py-1">Menu</button>
+    <nav id="nav" class="hidden md:flex gap-4">
+      <a href="#" class="hover:text-blue-600">Home</a>
+      <a href="#" class="hover:text-blue-600">Pricing</a>
+      <a href="#" class="hover:text-blue-600">About</a>
+    </nav>
+  </div>
+  <nav id="navMobile" class="md:hidden hidden px-6 pb-4 space-y-2">
+    <a href="#" class="block">Home</a>
+    <a href="#" class="block">Pricing</a>
+    <a href="#" class="block">About</a>
+  </nav>
+</header>
+<main class="max-w-5xl mx-auto px-6 py-10">
+  <p>Resize trình duyệt để test toggle menu.</p>
+</main>
+
+<script src="./script.js"></script>
+</body>
+</html>

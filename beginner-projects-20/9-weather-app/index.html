@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weather App (Mock)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="icon" href="data:,">
+
+</head>
+<body class="min-h-dvh bg-slate-50 text-slate-800">
+
+<main class="max-w-md mx-auto p-6">
+  <h1 class="text-2xl font-bold mb-4">Weather (Mock)</h1>
+  <form id="wf" class="flex gap-2">
+    <input id="city" class="flex-1 border rounded px-3 py-2" placeholder="Nhập thành phố, ví dụ: Hanoi">
+    <button class="px-4 py-2 rounded bg-blue-600 text-white">Xem</button>
+  </form>
+  <div id="card" class="mt-4 rounded-xl border p-4 bg-white shadow hidden"></div>
+  <p class="text-sm text-slate-500 mt-2">API thật có thể bật trong <code>script.js</code> (điền API key). Mặc định dùng mock tránh lỗi.</p>
+</main>
+
+<script src="./script.js"></script>
+</body>
+</html>

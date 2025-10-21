@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stopwatch Timer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="icon" href="data:,">
+
+</head>
+<body class="min-h-dvh bg-slate-50 text-slate-800">
+
+<main class="min-h-dvh grid place-items-center p-6">
+  <div class="bg-white rounded-2xl shadow p-6 w-full max-w-sm text-center">
+    <h1 class="text-2xl font-bold mb-4">Stopwatch</h1>
+    <div id="time" class="text-4xl font-mono">00:00.0</div>
+    <div class="mt-4 flex justify-center gap-3">
+      <button id="start" class="px-4 py-2 rounded bg-blue-600 text-white">Start</button>
+      <button id="pause" class="px-4 py-2 rounded border">Pause</button>
+      <button id="reset" class="px-4 py-2 rounded border">Reset</button>
+    </div>
+  </div>
+</main>
+
+<script src="./script.js"></script>
+</body>
+</html>

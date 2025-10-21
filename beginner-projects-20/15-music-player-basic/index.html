@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Music Player Basic</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="icon" href="data:,">
+
+</head>
+<body class="min-h-dvh bg-slate-50 text-slate-800">
+
+<main class="min-h-dvh grid place-items-center p-6">
+  <div class="bg-white rounded-2xl shadow p-6 w-full max-w-md text-center">
+    <h1 class="text-2xl font-bold">Music Player</h1>
+    <audio id="player" src="" class="w-full mt-4" controls></audio>
+    <div class="mt-4 flex justify-center gap-2">
+      <button id="prev" class="px-3 py-2 rounded border">Prev</button>
+      <button id="next" class="px-3 py-2 rounded border">Next</button>
+    </div>
+    <p id="now" class="text-sm text-slate-600 mt-2"></p>
+  </div>
+</main>
+
+<script src="./script.js"></script>
+</body>
+</html>

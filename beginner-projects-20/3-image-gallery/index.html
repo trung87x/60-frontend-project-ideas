@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image Gallery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="icon" href="data:,">
+
+</head>
+<body class="min-h-dvh bg-slate-50 text-slate-800">
+
+<main class="max-w-5xl mx-auto px-6 py-10">
+  <h1 class="text-3xl font-bold mb-6">Image Gallery</h1>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3" id="grid"></div>
+</main>
+
+<div id="modal" class="fixed inset-0 bg-black/70 hidden grid place-items-center p-6">
+  <img id="modalImg" class="max-h-[80dvh] rounded-lg shadow-lg" alt="preview">
+</div>
+
+<script src="./script.js"></script>
+</body>
+</html>

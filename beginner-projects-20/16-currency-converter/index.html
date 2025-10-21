@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Currency Converter</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="icon" href="data:,">
+
+</head>
+<body class="min-h-dvh bg-slate-50 text-slate-800">
+
+<main class="max-w-md mx-auto p-6">
+  <h1 class="text-2xl font-bold mb-4">Currency Converter (Mock)</h1>
+  <div class="grid grid-cols-2 gap-3">
+    <input id="amount" type="number" class="border rounded px-3 py-2" placeholder="Số tiền" value="1">
+    <input id="result" class="border rounded px-3 py-2" placeholder="Kết quả" readonly>
+    <select id="from" class="border rounded px-3 py-2"><option>USD</option><option>VND</option><option>EUR</option></select>
+    <select id="to" class="border rounded px-3 py-2"><option>VND</option><option>USD</option><option>EUR</option></select>
+  </div>
+  <button id="convert" class="mt-3 px-4 py-2 rounded bg-blue-600 text-white">Chuyển đổi</button>
+  <p class="text-sm text-slate-500 mt-2">Có thể bật API thật trong <code>script.js</code>.</p>
+</main>
+
+<script src="./script.js"></script>
+</body>
+</html>

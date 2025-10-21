@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login / Register</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="icon" href="data:,">
+
+</head>
+<body class="min-h-dvh bg-slate-50 text-slate-800">
+
+<main class="min-h-dvh grid place-items-center p-6 bg-gradient-to-br from-slate-50 to-slate-100">
+  <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md">
+    <div class="flex gap-2 mb-4">
+      <button id="tabLogin" class="px-3 py-2 rounded border bg-slate-50">Đăng nhập</button>
+      <button id="tabRegister" class="px-3 py-2 rounded border">Đăng ký</button>
+    </div>
+    <form id="login" class="grid gap-3">
+      <input type="email" class="border rounded px-3 py-2" placeholder="Email" required>
+      <input type="password" class="border rounded px-3 py-2" placeholder="Mật khẩu" required>
+      <button class="px-4 py-2 rounded bg-blue-600 text-white">Đăng nhập</button>
+    </form>
+    <form id="register" class="grid gap-3 hidden">
+      <input type="text" class="border rounded px-3 py-2" placeholder="Họ tên" required>
+      <input type="email" class="border rounded px-3 py-2" placeholder="Email" required>
+      <input type="password" class="border rounded px-3 py-2" placeholder="Mật khẩu" required>
+      <button class="px-4 py-2 rounded bg-green-600 text-white">Đăng ký</button>
+    </form>
+    <p id="msg" class="text-sm text-green-600 mt-3 hidden">Thành công (demo)</p>
+  </div>
+</main>
+
+<script src="./script.js"></script>
+</body>
+</html>
