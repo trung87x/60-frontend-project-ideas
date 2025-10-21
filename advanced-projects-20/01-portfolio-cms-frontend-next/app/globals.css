@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --bg: #0b0f14; --fg: #e8eef7; }
+body { background: var(--bg); color: var(--fg); }
+.container { max-width: 960px; margin: 0 auto; padding: 1rem; }
+a { text-decoration: none; }
+input, button, select, textarea { color: #0b0f14; }
